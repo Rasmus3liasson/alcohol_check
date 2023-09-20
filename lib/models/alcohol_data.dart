@@ -27,7 +27,7 @@ List<AlcoholData> alcoholDataList = [
   AlcoholData(
     iD: 3,
     image: "assets/images/sprit.png",
-    volume: [4,6,8,10],
+    volume: List.generate(60, (index) => index + 1),
     units: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   ),
 ];

@@ -1,4 +1,5 @@
 import 'package:alcohol_check/models/alcohol_data.dart';
+import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:flutter/material.dart';
 
 class ConsumptionPopUp extends StatefulWidget {
@@ -6,8 +7,9 @@ class ConsumptionPopUp extends StatefulWidget {
 
   ConsumptionPopUp({required this.alcoholData});
 
-  static void showPopUp(BuildContext context, AlcoholData alcoholData) {
-    showDialog(
+  static Future<ConsumptionPopUpData?> showPopUp(
+      BuildContext context, AlcoholData alcoholData) async {
+    return await showDialog<ConsumptionPopUpData>(
       context: context,
       builder: (BuildContext context) {
         return ConsumptionPopUp(alcoholData: alcoholData);
@@ -22,30 +24,37 @@ class ConsumptionPopUp extends StatefulWidget {
 class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
   int? volume;
   int? units;
-  late String unitSign = "";
+  late String unitSign;
 
   late String labelVolume;
-  String labelUnits = "Hur många enheter av denna vara";
+  late String labelUnits;
 
   @override
   void initState() {
     super.initState();
 
-    int id = widget.alcoholData.iD;
+    int iD = widget.alcoholData.iD;
 
     // Set labelVolume and units based on id
-    if (dataBasedOnId.containsKey(id)) {
-      labelVolume = dataBasedOnId[id]!['label']!;
-      unitSign = dataBasedOnId[id]!['unit']!;
-
-      if (widget.alcoholData.volume != null) {
-        volume = widget.alcoholData.volume![0];
-        labelUnits = 'Hur många enheter?';
-      }
+    if (stringBasedOnId.containsKey(iD)) {
+      labelVolume = stringBasedOnId[iD]!['label']!;
+      unitSign = stringBasedOnId[iD]!['unit']!;
     }
+     else {
+      unitSign = '';
+    }
+
+    labelUnits =
+        (iD == 2) ? 'Hur många glas?' : 'Hur många enheter av denna vara';
+
+    // Null check since id 2 dont have volume
+    if (widget.alcoholData.volume != null) {
+      volume = widget.alcoholData.volume![0];
+    }
+    units = widget.alcoholData.units[0];
   }
 
-  Map<int, Map<String, String>> dataBasedOnId = {
+  Map<int, Map<String, String>> stringBasedOnId = {
     1: {
       'label': 'Vilken volym på enheten?',
       'unit': 'cl',
@@ -62,6 +71,17 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: Icon(Icons.cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
           Image.asset(
             widget.alcoholData.image,
             width: 120.0,
@@ -71,7 +91,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
           if (widget.alcoholData.volume != null)
             Column(
               children: [
-                Text(labelVolume),
+                Text(labelUnits),
                 DropdownButton<int>(
                   value: volume,
                   onChanged: (int? newValue) {
@@ -79,7 +99,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                       volume = newValue;
                     });
                   },
-                  items: (widget.alcoholData.volume ?? []).map((value) {
+                  items: (widget.alcoholData.volume)?.map((value) {
                     return DropdownMenuItem<int>(
                       value: value,
                       child: Text('${value.toString()} ${unitSign}'),
@@ -87,33 +107,45 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                   }).toList(),
                 ),
                 SizedBox(height: 16.0),
-                Text(labelUnits),
-                DropdownButton<int>(
-                  value: units,
-                  onChanged: (int? newValue) {
-                    setState(() {
-                      units = newValue;
-                    });
-                  },
-                  items: (widget.alcoholData.units).map((value) {
-                    return DropdownMenuItem<int>(
-                      value: value,
-                      child: Text(value.toString()),
-                    );
-                  }).toList(),
-                ),
               ],
             ),
+          Column(
+            children: [
+              Text(labelUnits),
+              DropdownButton<int>(
+                value: units,
+                onChanged: (int? newValue) {
+                  setState(() {
+                    units = newValue;
+                  });
+                },
+                items: (widget.alcoholData.units).map((value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text(value.toString()),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ConsumptionPopUpData resultData = ConsumptionPopUpData(
+                image: widget.alcoholData.image,
+                volume: volume,
+                units: units ?? 0,
+                unitSign: unitSign, 
+              );
+
+              Navigator.of(context).pop(resultData);
+            },
+            child: Text("Lägg till"),
+          )
         ],
       ),
-      actions: <Widget>[
-        TextButton(
-          child: Text('Stäng'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
     );
   }
 }
