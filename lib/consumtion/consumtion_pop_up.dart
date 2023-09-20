@@ -20,7 +20,41 @@ class ConsumptionPopUp extends StatefulWidget {
 }
 
 class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
-  AlcoholData? selectedAlcoholData;
+  int? volume;
+  int? units;
+  late String unitSign = "";
+
+  late String labelVolume;
+  String labelUnits = "Hur många enheter av denna vara";
+
+  @override
+  void initState() {
+    super.initState();
+
+    int id = widget.alcoholData.iD;
+
+    // Set labelVolume and units based on id
+    if (dataBasedOnId.containsKey(id)) {
+      labelVolume = dataBasedOnId[id]!['label']!;
+      unitSign = dataBasedOnId[id]!['unit']!;
+
+      if (widget.alcoholData.volume != null) {
+        volume = widget.alcoholData.volume![0];
+        labelUnits = 'Hur många enheter?';
+      }
+    }
+  }
+
+  Map<int, Map<String, String>> dataBasedOnId = {
+    1: {
+      'label': 'Vilken volym på enheten?',
+      'unit': 'cl',
+    },
+    3: {
+      'label': 'Vilken procent på spriten var det?',
+      'unit': '%',
+    },
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +68,42 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
             height: 120.0,
           ),
           SizedBox(height: 16.0),
-          DropdownButton<AlcoholData>(
-            value: selectedAlcoholData,
-            onChanged: (AlcoholData? newValue) {
-              setState(() {
-                selectedAlcoholData = newValue;
-              });
-            },
-            items: <DropdownMenuItem<AlcoholData>>[
-              DropdownMenuItem<AlcoholData>(
-                value: widget.alcoholData,
-                child: Text(
-                  widget.alcoholData.volume.toString()),
-              ),
-              
-            ],
-          ),
+          if (widget.alcoholData.volume != null)
+            Column(
+              children: [
+                Text(labelVolume),
+                DropdownButton<int>(
+                  value: volume,
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      volume = newValue;
+                    });
+                  },
+                  items: (widget.alcoholData.volume ?? []).map((value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text('${value.toString()} ${unitSign}'),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 16.0),
+                Text(labelUnits),
+                DropdownButton<int>(
+                  value: units,
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      units = newValue;
+                    });
+                  },
+                  items: (widget.alcoholData.units).map((value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
         ],
       ),
       actions: <Widget>[
@@ -59,7 +113,6 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
             Navigator.of(context).pop();
           },
         ),
-        
       ],
     );
   }

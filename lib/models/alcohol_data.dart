@@ -1,13 +1,13 @@
-class AlcoholData{
+class AlcoholData {
   final int iD;
   final String image;
-  final int volume;
-  final int units;
+  final List<int>? volume;
+  final List<int> units;
 
   AlcoholData({
     required this.iD,
     required this.image,
-    required this.volume,
+    this.volume,
     required this.units,
   });
 }
@@ -16,20 +16,18 @@ List<AlcoholData> alcoholDataList = [
   AlcoholData(
     iD: 1,
     image: "assets/images/ol.png",
-    volume: 330,
-    units: 1,   
+    volume: [33, 50],
+    units: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   ),
   AlcoholData(
     iD: 2,
-image: "assets/images/vin.png",
-    volume: 750,
-    units: 1,   
+    image: "assets/images/vin.png",
+    units: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   ),
   AlcoholData(
     iD: 3,
     image: "assets/images/sprit.png",
-    volume: 750,
-    units: 1,   
+    volume: [4,6,8,10],
+    units: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   ),
 ];
-
