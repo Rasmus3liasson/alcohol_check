@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 class ChoosenConsumtion extends StatelessWidget {
   final ConsumptionPopUpData consumtionData;
+  final Function removeFromConsumtion;
 
-  ChoosenConsumtion({required this.consumtionData});
+  ChoosenConsumtion({
+    required this.consumtionData,
+    required this.removeFromConsumtion,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,6 @@ class ChoosenConsumtion extends StatelessWidget {
       width: 350.0,
       child: Column(
         children: [
-   
           SizedBox(
             height: 20.0,
           ),
@@ -20,7 +23,7 @@ class ChoosenConsumtion extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(
                     consumtionData.image,
@@ -32,13 +35,28 @@ class ChoosenConsumtion extends StatelessWidget {
                       if (consumtionData.volume != null)
                         Text(
                           "${consumtionData.volume} ${consumtionData.unitSign}",
-                          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300),
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.w300),
                         ),
                       Text(
                         "Mängd: ${consumtionData.units} enheter/glas",
-                        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300),
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.w300),
                       ),
                     ],
+                  ),
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.cancel),
+                          onPressed: () {
+                            removeFromConsumtion(); 
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

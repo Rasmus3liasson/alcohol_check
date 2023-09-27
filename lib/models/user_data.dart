@@ -9,4 +9,19 @@ class UserData {
     required this.gender,
   });
 }
+class UserDataTime extends UserData {
+  final DateTime startTime;
+  final DateTime endTime;
 
+  UserDataTime({
+    required this.startTime,
+    required this.endTime,
+    required int height,
+    required int weight,
+    required String gender,
+  }) : super(
+          height: height,
+          weight: weight,
+          gender: gender,
+        );
+}

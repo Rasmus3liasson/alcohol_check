@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text(
                 'Gå vidare',
-                style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300 ),
+                style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w300 ),
               ),
             ),
           ],
