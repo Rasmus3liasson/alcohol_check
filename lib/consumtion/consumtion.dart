@@ -3,6 +3,7 @@ import 'package:alcohol_check/consumtion/consumtion_pop_up.dart';
 import 'package:alcohol_check/consumtion_time/consumtion_time.dart';
 import 'package:alcohol_check/models/alcohol_data.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
+import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 
 class Consumtion extends StatefulWidget {
@@ -14,15 +15,24 @@ class _ConsumtionState extends State<Consumtion> {
   List<ConsumptionPopUpData> consumtionList = [];
   bool isVisible = false;
   double imageOpacity = 0.0;
+  AlcoholData? selectedLiqour;
 
   Future<void> openConsumptionPopUp(
       BuildContext context, AlcoholData liqour) async {
     ConsumptionPopUpData? consumtionData =
         await ConsumptionPopUp.showPopUp(context, liqour);
 
+    // Check to replace if there are changes to the item
     if (consumtionData != null) {
+      int index =
+          consumtionList.indexWhere((item) => item.image == liqour.image);
       setState(() {
-        consumtionList.add(consumtionData);
+        if (index != -1) {
+          consumtionList[index] = consumtionData;
+        } else {
+          consumtionList.add(consumtionData);
+        }
+        selectedLiqour = liqour;
       });
     }
   }
@@ -30,9 +40,7 @@ class _ConsumtionState extends State<Consumtion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Alkohol Konsumtion'),
-        ),
+        appBar: CustomAppBar(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +78,7 @@ class _ConsumtionState extends State<Consumtion> {
               SizedBox(
                 height: 20.0,
               ),
-              if (consumtionList.isNotEmpty)
+              if (consumtionList.isNotEmpty && !isVisible)
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -90,6 +98,9 @@ class _ConsumtionState extends State<Consumtion> {
                             setState(() {
                               consumtionList.remove(consumtionData);
                             });
+                          },
+                          openConsumptionPopUp: (context) {
+                            openConsumptionPopUp(context, selectedLiqour!);
                           },
                         );
                       }),

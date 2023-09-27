@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:alcohol_check/consumtion/consumtion.dart';
+import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
 
@@ -31,9 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Information'),
-      ),
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
