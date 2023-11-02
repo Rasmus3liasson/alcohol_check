@@ -3,10 +3,16 @@ import 'package:alcohol_check/consumtion/consumtion_pop_up.dart';
 import 'package:alcohol_check/consumtion_time/consumtion_time.dart';
 import 'package:alcohol_check/models/alcohol_data.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
+import 'package:alcohol_check/models/user_data.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 
 class Consumtion extends StatefulWidget {
+
+  final UserData userData;
+
+  const Consumtion({Key? key, required this.userData}) : super(key: key);
+
   @override
   _ConsumtionState createState() => _ConsumtionState();
 }
@@ -43,8 +49,10 @@ class _ConsumtionState extends State<Consumtion> {
         appBar: CustomAppBar(),
         body: Center(
           child: Column(
+          
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
               if (isVisible)
                 Expanded(
                   child: AnimatedOpacity(
@@ -114,6 +122,7 @@ class _ConsumtionState extends State<Consumtion> {
                             MaterialPageRoute(
                               builder: (context) => ConsumtionTime(
                                 consumtionData: consumtionList,
+                                userData:widget.userData,
                               ),
                             ),
                           );

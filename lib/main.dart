@@ -102,16 +102,17 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                UserData(
+                UserData userData = UserData(
                   height: height,
                   weight: weight,
                   gender: gender,
                 );
 
+                
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Consumtion(),
+                    builder: (context) => Consumtion(userData:userData),
                   ),
                 );
               },

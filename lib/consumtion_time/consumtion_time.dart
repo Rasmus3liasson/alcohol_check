@@ -1,12 +1,14 @@
 import 'package:alcohol_check/models/consumption_pop_up.dart';
+import 'package:alcohol_check/models/user_data.dart';
 import 'package:alcohol_check/result/result.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 
 class ConsumtionTime extends StatefulWidget {
   final List<ConsumptionPopUpData> consumtionData;
+  final UserData userData;
 
-  const ConsumtionTime({required this.consumtionData, Key? key})
+  const ConsumtionTime({required this.consumtionData, required this.userData, Key? key})
       : super(key: key);
 
   @override
@@ -36,7 +38,6 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           endDrinkTime = choice;
         }
       });
-     
     }
   }
 
@@ -51,7 +52,12 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       isLoading = false;
     });
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Result()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Result(consumtionData: widget.consumtionData,userData:widget.userData),
+      ),
+    );
   }
 
   @override
@@ -68,17 +74,6 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                   'Consumtion Data:',
                   style: TextStyle(fontSize: 20.0),
                 ),
-                Column(
-                  children: widget.consumtionData.map((data) {
-                    return Column(
-                      children: [
-                        Text('Image: ${data.image}'),
-                        Text('Volume: ${data.volume}'),
-                        Text('Units: ${data.units}'),
-                      ],
-                    );
-                  }).toList(),
-                ),
                 SizedBox(height: 20.0),
                 (endDrinkTime == null)
                     ? ElevatedButton(
@@ -92,7 +87,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                       )
                     : ElevatedButton(
                         onPressed: () {
-                          showResult(); 
+                          showResult();
                         },
                         child: Text("Se Resultat"),
                       ),
