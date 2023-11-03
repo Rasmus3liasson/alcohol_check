@@ -4,6 +4,7 @@ import 'package:alcohol_check/consumtion/consumtion.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
+import 'package:alcohol_check/utils/functions/gender_enum.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String gender = 'Man';
+  Gender gender = Gender.man;
   int height = 0;
   int weight = 0;
 
@@ -83,18 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 14.0),
             // Gender dropdown
-            DropdownButton<String>(
+            DropdownButton<Gender>(
               value: gender,
               onChanged: (newValue) {
                 setState(() {
                   gender = newValue!;
                 });
               },
-              items: <String>['Man', 'Kvinna', 'Annat']
-                  .map<DropdownMenuItem<String>>(
-                    (String value) => DropdownMenuItem<String>(
+              items: Gender.values
+                  .map<DropdownMenuItem<Gender>>(
+                    (Gender value) => DropdownMenuItem<Gender>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value.toString().split('.').last),
                     ),
                   )
                   .toList(),
@@ -108,17 +109,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   gender: gender,
                 );
 
-                
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Consumtion(userData:userData),
+                    builder: (context) => Consumtion(userData: userData),
                   ),
                 );
               },
               child: Text(
                 'Gå vidare',
-                style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w300 ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
               ),
             ),
           ],

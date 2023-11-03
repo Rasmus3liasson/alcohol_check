@@ -1,7 +1,9 @@
+import 'package:alcohol_check/utils/functions/gender_enum.dart';
+
 class UserData {
   final int height;
   final int weight;
-  final String gender;
+  final Gender gender;
 
   UserData({
     required this.height,
@@ -18,7 +20,7 @@ class UserDataTime extends UserData {
     required this.endTime,
     required int height,
     required int weight,
-    required String gender,
+    required Gender gender,
   }) : super(
           height: height,
           weight: weight,

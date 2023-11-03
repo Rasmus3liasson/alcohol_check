@@ -34,8 +34,10 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       setState(() {
         if (!state) {
           startDrinkTime = choice;
+          
         } else {
           endDrinkTime = choice;
+          
         }
       });
     }
@@ -46,18 +48,48 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       isLoading = true;
     });
 
+    // Simulate loading delay
     await Future.delayed(Duration(seconds: 3));
 
     setState(() {
       isLoading = false;
     });
 
+    double timeSinceDrinking = calculateTimeSinceDrinking(endDrinkTime); // Calculate time since drinking
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Result(consumtionData: widget.consumtionData,userData:widget.userData),
+        builder: (context) => Result(
+          consumtionData: widget.consumtionData,
+          userData: widget.userData,
+          timeSinceDrinking: timeSinceDrinking,
+        ),
       ),
     );
+  }
+
+  double calculateTimeSinceDrinking(TimeOfDay? endDrinkTime) {
+   if (endDrinkTime == null) {
+    return 0.0;
+  }
+
+  final now = DateTime.now();
+  final endTime = DateTime(
+    now.year,
+    now.month,
+    now.day,
+    endDrinkTime.hour,
+    endDrinkTime.minute,
+  );
+
+  final timeDifference = now.difference(endTime);
+
+  final hoursDifference = timeDifference.inHours;
+  final minutesDifference = (timeDifference.inMinutes - hoursDifference * 60) / 60.0;
+
+  return hoursDifference + minutesDifference;
+
   }
 
   @override
@@ -71,7 +103,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Consumtion Data:',
+                  'Consumption Data:',
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(height: 20.0),
