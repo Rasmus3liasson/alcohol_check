@@ -1,4 +1,4 @@
- import '../enums/gender_enum.dart';
+import 'package:alcohol_check/utils/enums/gender_enum.dart';
 
 bool isSober({
   required int height,

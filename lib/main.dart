@@ -4,7 +4,7 @@ import 'package:alcohol_check/consumtion/consumtion.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
-import 'package:alcohol_check/utils/functions/gender_enum.dart';
+import 'package:alcohol_check/utils/enums/gender_enum.dart';
 
 void main() {
   runApp(MyApp());
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   .map<DropdownMenuItem<Gender>>(
                     (Gender value) => DropdownMenuItem<Gender>(
                       value: value,
-                      child: Text(value.toString().split('.').last),
+                      child: Text(value.toString()..split('.').last),
                     ),
                   )
                   .toList(),

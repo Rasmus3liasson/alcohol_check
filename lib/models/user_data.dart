@@ -1,4 +1,4 @@
-import 'package:alcohol_check/utils/functions/gender_enum.dart';
+import 'package:alcohol_check/utils/enums/gender_enum.dart';
 
 class UserData {
   final int height;
