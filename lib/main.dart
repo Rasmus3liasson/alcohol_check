@@ -95,7 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   .map<DropdownMenuItem<Gender>>(
                     (Gender value) => DropdownMenuItem<Gender>(
                       value: value,
-                      child: Text(value.toString()..split('.').last),
+                      child: Text(
+                        '${value.toString().split('.').last[0].toUpperCase()}${value.toString().split('.').last.substring(1)}',
+                      ),
                     ),
                   )
                   .toList(),
