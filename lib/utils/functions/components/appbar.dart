@@ -22,12 +22,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(Icons.arrow_back_ios_rounded),
             )
           : null,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.person_3_rounded),
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }

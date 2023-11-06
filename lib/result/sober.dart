@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Sober extends StatelessWidget {
-  const Sober({super.key});
+
+final double bac; 
+
+  const Sober({Key? key, required this.bac}):super(key: key);
 
   @override
   Widget build(BuildContext context) {

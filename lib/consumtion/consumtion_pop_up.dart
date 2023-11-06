@@ -39,8 +39,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
     if (stringBasedOnId.containsKey(iD)) {
       labelVolume = stringBasedOnId[iD]!['label']!;
       unitSign = stringBasedOnId[iD]!['unit']!;
-    }
-     else {
+    } else {
       unitSign = '';
     }
 
@@ -137,12 +136,13 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                 image: widget.alcoholData.image,
                 volume: volume,
                 units: units ?? 0,
-                unitSign: unitSign, 
+                unitSign: unitSign,
               );
 
               Navigator.of(context).pop(resultData);
             },
             child: Text("Lägg till"),
+            
           )
         ],
       ),

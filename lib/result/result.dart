@@ -5,6 +5,7 @@ import 'package:alcohol_check/result/drunk.dart';
 import 'package:alcohol_check/result/sober.dart';
 import 'package:alcohol_check/utils/functions/calculate_result.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
+import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:alcohol_check/utils/functions/to_liqour.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class Result extends StatelessWidget {
       totalLiquorVolume += volumeInLiquor! * data.units!.toDouble();
     }
 
-    bool result = isSober(
+    SoberResult result = isSober(
       height: userData.height,
       weight: userData.weight,
       gender: userData.gender,
@@ -36,14 +37,15 @@ class Result extends StatelessWidget {
       timeDifferenceInHours: timeSinceDrinking,
     );
 
+
     return Scaffold(
       appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // result ? Sober() : Drunk(),
-            Drunk(),
+            // result.isSober ? Sober() : Drunk(),
+            Drunk(bac:result.bac),
 
             ElevatedButton(
               onPressed: () {
@@ -57,6 +59,7 @@ class Result extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

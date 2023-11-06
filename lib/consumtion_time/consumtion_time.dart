@@ -2,6 +2,7 @@ import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:alcohol_check/models/user_data.dart';
 import 'package:alcohol_check/result/result.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
+import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:flutter/material.dart';
 
 class ConsumtionTime extends StatefulWidget {
@@ -130,12 +131,13 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           if (isLoading)
             Container(
               color: Colors.black.withOpacity(0.7),
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),
         ],
       ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

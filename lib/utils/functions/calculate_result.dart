@@ -1,6 +1,13 @@
 import 'package:alcohol_check/utils/enums/gender_enum.dart';
 
-bool isSober({
+class SoberResult {
+  final double bac;
+  final bool isSober;
+
+  SoberResult(this.bac, this.isSober);
+}
+
+SoberResult isSober({
   required int height,
   required int weight,
   required Gender gender,
@@ -11,12 +18,14 @@ bool isSober({
   final alcoholInGrams = (alcoholConsumed * 40) * 0.789; // Convert cl to grams
   final bodyWeightInGrams = weight * 1000;
 
-  double bac = (alcoholInGrams / (bodyWeightInGrams * genderNumber)) -
-      (0.015 * timeDifferenceInHours);
+  double bacAllDecimals =
+      (alcoholInGrams / (bodyWeightInGrams * genderNumber)) -
+          (0.015 * timeDifferenceInHours);
+
+  double bac = double.parse(bacAllDecimals.toStringAsFixed(2));
 
   const alcoholLimit = 0.02;
 
-
-
-  return bac < alcoholLimit;
+  final isSober = bac < alcoholLimit;
+  return SoberResult(bac, isSober);
 }

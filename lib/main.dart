@@ -2,6 +2,7 @@
 
 import 'package:alcohol_check/consumtion/consumtion.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
+import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
 import 'package:alcohol_check/utils/enums/gender_enum.dart';
@@ -10,7 +11,12 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,40 +52,65 @@ class _MyHomePageState extends State<MyHomePage> {
             // Height input field
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  setState(() {
-                    int? parsedHeight = int.tryParse(value);
-                    if (parsedHeight != null) {
-                      height = parsedHeight;
-                    }
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Längd (cm)'),
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          int? parsedHeight = int.tryParse(value);
+                          if (parsedHeight != null) {
+                            height = parsedHeight;
+                          }
+                        });
+                      },
+                      decoration: InputDecoration(labelText: 'Längd (cm)'),
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                  if (height.toString().length == 3)
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    )
+                ],
               ),
             ),
             SizedBox(height: 14.0),
             // Weight input field
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  setState(() {
-                    int? parsedWeight = int.tryParse(value);
-                    if (parsedWeight != null) {
-                      weight = parsedWeight;
-                    }
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Vikt (kg)'),
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          int? parsedWeight = int.tryParse(value);
+                          if (parsedWeight != null) {
+                            weight = parsedWeight;
+                          }
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Vikt (kg)',
+                      ),
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                  if (weight.toString().length == 2 ||
+                      weight.toString().length == 3)
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    )
+                ],
               ),
             ),
             SizedBox(height: 14.0),
@@ -103,29 +134,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   .toList(),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                UserData userData = UserData(
-                  height: height,
-                  weight: weight,
-                  gender: gender,
-                );
+            if (height > 0 && weight > 0)
+              ElevatedButton(
+                onPressed: () {
+                  UserData userData = UserData(
+                    height: height,
+                    weight: weight,
+                    gender: gender,
+                  );
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Consumtion(userData: userData),
-                  ),
-                );
-              },
-              child: Text(
-                'Gå vidare',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
-              ),
-            ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Consumtion(userData: userData),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Gå vidare',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
+                ),
+              )
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

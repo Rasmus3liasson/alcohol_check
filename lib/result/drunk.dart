@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Drunk extends StatelessWidget {
-  const Drunk({super.key});
+  final double bac;
+
+  const Drunk({Key? key, required this.bac}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,9 @@ class Drunk extends StatelessWidget {
         SizedBox(
           height: 80.0,
         ),
-        const Text('Tyvärr har du alkohol kvar i kroppen vila och tryck en pizza')
+         Text('Tyvärr har du alkohol kvar i kroppen vila och tryck en pizza'),
+          Text('BAC: $bac'),
+        
       ],
     ));
   }
