@@ -17,51 +17,36 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () {
-            if (isDrawerVisible) {
-              setState(() {
-                isDrawerVisible = false;
-              });
-            }
-          },
+    return BottomNavigationBar(
+      backgroundColor: Colors.transparent,
+      selectedItemColor: AppColor.blackColor,
+      unselectedItemColor: AppColor.greyColor,
+      currentIndex: index,
+      elevation: 0,
+      onTap: (i) {
+        setState(() {
+          index = i;
+        });
+        if (i == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MyHomePage()),
+          );
+        } else {
+          setState(() {
+            isDrawerVisible = !isDrawerVisible;
+          });
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home, size: 32.0),
+          label: 'Hem',
         ),
-        BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          selectedItemColor: AppColor.blackColor,
-          unselectedItemColor: AppColor.greyColor,
-          currentIndex: index,
-          elevation: 0,
-          onTap: (i) {
-            setState(() {
-              index = i;
-            });
-            if (i == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyHomePage()),
-              );
-            } else {
-              setState(() {
-                isDrawerVisible = !isDrawerVisible;
-              });
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Hem',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_3_rounded),
-              label: 'Konto',
-            ),
-          ],
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_3_rounded, size: 32.0),
+          label: 'Konto',
         ),
-        /*     if (isDrawerVisible)
-             CustomDrawer(), */
       ],
     );
   }

@@ -59,7 +59,7 @@ class Result extends StatelessWidget {
           ],
         ),
       ),
-      persistentFooterButtons: [ CustomBottomNavigationBar()],
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

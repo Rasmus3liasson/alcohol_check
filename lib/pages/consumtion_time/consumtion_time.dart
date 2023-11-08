@@ -10,8 +10,11 @@ class ConsumtionTime extends StatefulWidget {
   final List<ConsumptionPopUpData> consumtionData;
   final UserData userData;
 
-  const ConsumtionTime({required this.consumtionData, required this.userData, Key? key})
-      : super(key: key);
+  const ConsumtionTime({
+    required this.consumtionData,
+    required this.userData,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ConsumtionTimeState createState() => _ConsumtionTimeState();
@@ -36,10 +39,8 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       setState(() {
         if (!state) {
           startDrinkTime = choice;
-          
         } else {
           endDrinkTime = choice;
-          
         }
       });
     }
@@ -57,7 +58,8 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       isLoading = false;
     });
 
-    double timeSinceDrinking = calculateTimeSinceDrinking(endDrinkTime); // Calculate time since drinking
+    double timeSinceDrinking = calculateTimeSinceDrinking(
+        endDrinkTime); // Calculate time since drinking
 
     Navigator.push(
       context,
@@ -72,88 +74,102 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   }
 
   double calculateTimeSinceDrinking(TimeOfDay? endDrinkTime) {
-   if (endDrinkTime == null) {
-    return 0.0;
-  }
+    if (endDrinkTime == null) {
+      return 0.0;
+    }
 
-  final now = DateTime.now();
-  final endTime = DateTime(
-    now.year,
-    now.month,
-    now.day,
-    endDrinkTime.hour,
-    endDrinkTime.minute,
-  );
+    final now = DateTime.now();
+    final endTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      endDrinkTime.hour,
+      endDrinkTime.minute,
+    );
 
-  final timeDifference = now.difference(endTime);
+    final timeDifference = now.difference(endTime);
 
-  final hoursDifference = timeDifference.inHours;
-  final minutesDifference = (timeDifference.inMinutes - hoursDifference * 60) / 60.0;
+    final hoursDifference = timeDifference.inHours;
+    final minutesDifference =
+        (timeDifference.inMinutes - hoursDifference * 60) / 60.0;
 
-  return hoursDifference + minutesDifference;
-
+    return hoursDifference + minutesDifference;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-               Text('Välj tid',
-                  style: TextStyle(fontSize: 30.0)),
-                SizedBox(height: 20.0),
-                (endDrinkTime == null)
-                    ? ElevatedButton(
-                       style: ElevatedButton.styleFrom(
-                        
-                        backgroundColor: AppColor.blackColor,
-                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+      body: Center(
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    startDrinkTime == null
+                        ? 'Välj tid'
+                        : 'Starttid: ${startDrinkTime.toString().substring(10, 15)}',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    endDrinkTime == null
+                        ? ''
+                        : 'Sluttid: ${endDrinkTime.toString().substring(10, 15)}',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                  SizedBox(height: 50.0),
+                  (endDrinkTime == null)
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.blackColor,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20.0, horizontal: 40.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await timeInput(context);
+                            setState(() {
+                              state = true;
+                            });
+                          },
+                          child: Text(
+                            !state ? "Start tid" : "Slut tid",
+                            style: TextStyle(fontSize: 24.0),
+                          ),
+                        )
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.blackColor,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20.0, horizontal: 40.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            showResult();
+                          },
+                          child: Text("Se Resultat", style: TextStyle(fontSize: 24.0)),
                         ),
-                      ),
-                        onPressed: () async {
-                          await timeInput(context);
-                          setState(() {
-                            state = true;
-                          });
-                        },
-                        child: Text(!state ? "Start tid" : "Slut tid",style: TextStyle(fontSize: 24.0),),
-                      )
-                    : ElevatedButton(
-                       style: ElevatedButton.styleFrom(
-                        
-                        backgroundColor: AppColor.blackColor,
-                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                        onPressed: () {
-                          showResult();
-                        },
-                        child: Text("Se Resultat",style: TextStyle(fontSize: 24.0)),
-                      ),
-              ],
-            ),
-          ),
-          // Container for loading
-          if (isLoading)
-            Container(
-              color: AppColor.blackColor.withOpacity(0.9),
-              child: const Center(
-                child: CircularProgressIndicator(),
+                ],
               ),
             ),
-        ],
+            if (isLoading)
+              Container(
+                color: AppColor.blackColor.withOpacity(0.9),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+          ],
+        ),
       ),
-      persistentFooterButtons: [CustomBottomNavigationBar()],
-      
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

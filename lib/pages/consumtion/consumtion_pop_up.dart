@@ -68,92 +68,95 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: Icon(Icons.cancel),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.cancel),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            Image.asset(
+              widget.alcoholData.image,
+              width: 350.0,
+              height: 350.0,
+            ),
+            SizedBox(height: 16.0),
+            if (widget.alcoholData.volume != null)
+              Column(
+                children: [
+                  Text(labelVolume),
+                  DropdownButton<int>(
+                    value: volume,
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        volume = newValue;
+                      });
+                    },
+                    items: (widget.alcoholData.volume)?.map((value) {
+                      return DropdownMenuItem<int>(
+                        value: value,
+                        child: Text('${value.toString()} ${unitSign}'),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 16.0),
+                ],
               ),
-            ],
-          ),
-          Image.asset(
-            widget.alcoholData.image,
-            width: 120.0,
-            height: 120.0,
-          ),
-          SizedBox(height: 16.0),
-          if (widget.alcoholData.volume != null)
             Column(
               children: [
                 Text(labelUnits),
                 DropdownButton<int>(
-                  value: volume,
+                  value: units,
                   onChanged: (int? newValue) {
                     setState(() {
-                      volume = newValue;
+                      units = newValue;
                     });
                   },
-                  items: (widget.alcoholData.volume)?.map((value) {
+                  items: (widget.alcoholData.units).map((value) {
                     return DropdownMenuItem<int>(
                       value: value,
-                      child: Text('${value.toString()} ${unitSign}'),
+                      child: Text(value.toString()),
                     );
                   }).toList(),
                 ),
-                SizedBox(height: 16.0),
               ],
             ),
-          Column(
-            children: [
-              Text(labelUnits),
-              DropdownButton<int>(
-                value: units,
-                onChanged: (int? newValue) {
-                  setState(() {
-                    units = newValue;
-                  });
-                },
-                items: (widget.alcoholData.units).map((value) {
-                  return DropdownMenuItem<int>(
-                    value: value,
-                    child: Text(value.toString()),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          ElevatedButton(
-             style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.blackColor, 
-                  padding: EdgeInsets.all(18.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(30.0), 
+            SizedBox(
+              height: 10.0,
+            ),
+            ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.blackColor, 
+                    padding: EdgeInsets.all(18.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(30.0), 
+                    ),
                   ),
-                ),
-            onPressed: () {
-              ConsumptionPopUpData resultData = ConsumptionPopUpData(
-                image: widget.alcoholData.image,
-                volume: volume,
-                units: units ?? 0,
-                unitSign: unitSign,
-              );
-
-              Navigator.of(context).pop(resultData);
-            },
-            child: Text("Lägg till"),
-            
-          )
-        ],
+              onPressed: () {
+                ConsumptionPopUpData resultData = ConsumptionPopUpData(
+                  image: widget.alcoholData.image,
+                  volume: volume,
+                  units: units ?? 0,
+                  unitSign: unitSign,
+                );
+      
+                Navigator.of(context).pop(resultData);
+              },
+              child: Text("Lägg till"),
+              
+            )
+          ],
+        ),
       ),
     );
   }

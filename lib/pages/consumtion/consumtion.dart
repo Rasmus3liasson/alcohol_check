@@ -101,9 +101,10 @@ class _ConsumtionState extends State<Consumtion> {
                       "Din Konsumntion",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 24.0,
+                        fontSize: 40.0,
                       ),
                     ),
+                    SizedBox(height: 30.0,),
                     // Display the ChoosenConsumtion widgets
                     ...consumtionList.map((consumtionData) {
                       return ChoosenConsumtion(
@@ -119,7 +120,7 @@ class _ConsumtionState extends State<Consumtion> {
                       );
                     }),
                     const SizedBox(
-                      height: 20.0,
+                      height: 30.0,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -154,25 +155,28 @@ class _ConsumtionState extends State<Consumtion> {
           ],
         ),
       ),
-      persistentFooterButtons: [
+      bottomNavigationBar: 
         Stack(
           alignment: Alignment.center,
           children: [
             const CustomBottomNavigationBar(),
-            FloatingActionButton(
-              backgroundColor: AppColor.blackColor,
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              child: !isVisible
-                  ? const Icon(Icons.add_sharp)
-                  : const Icon(Icons.close),
+            Positioned(
+              top:0,
+              child: FloatingActionButton(
+                backgroundColor: AppColor.blackColor,
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                child: !isVisible
+                    ? const Icon(Icons.add_sharp)
+                    : const Icon(Icons.close),
+              ),
             ),
           ],
         )
-      ],
+      
     );
   }
 }

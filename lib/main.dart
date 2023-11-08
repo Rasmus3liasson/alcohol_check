@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      persistentFooterButtons: [CustomBottomNavigationBar()],
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
