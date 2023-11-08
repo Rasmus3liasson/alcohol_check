@@ -140,23 +140,24 @@ class _ConsumtionState extends State<Consumtion> {
           ],
         ),
       ),
-      bottomNavigationBar: Stack(
-        alignment: Alignment.center,
-        children: [
-          const CustomBottomNavigationBar(),
-          Positioned(
-            bottom: 33,
-            child: FloatingActionButton(
+      persistentFooterButtons: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            const CustomBottomNavigationBar(),
+            FloatingActionButton(
               onPressed: () {
                 setState(() {
                   isVisible = !isVisible;
                 });
               },
-              child: !isVisible ? const Icon(Icons.add_sharp) : const Icon(Icons.close),
+              child: !isVisible
+                  ? const Icon(Icons.add_sharp)
+                  : const Icon(Icons.close),
             ),
-          ),
-        ],
-      ),
+          ],
+        )
+      ],
     );
   }
 }

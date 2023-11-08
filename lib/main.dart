@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'User Information',
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
@@ -158,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+ persistentFooterButtons: [CustomBottomNavigationBar()],
     );
   }
 }
