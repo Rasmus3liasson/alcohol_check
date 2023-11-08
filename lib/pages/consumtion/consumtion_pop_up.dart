@@ -1,5 +1,6 @@
 import 'package:alcohol_check/models/alcohol_data.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:flutter/material.dart';
 
 class ConsumptionPopUp extends StatefulWidget {
@@ -131,6 +132,14 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
             height: 10.0,
           ),
           ElevatedButton(
+             style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.blackColor, 
+                  padding: EdgeInsets.all(18.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(30.0), 
+                  ),
+                ),
             onPressed: () {
               ConsumptionPopUpData resultData = ConsumptionPopUpData(
                 image: widget.alcoholData.image,

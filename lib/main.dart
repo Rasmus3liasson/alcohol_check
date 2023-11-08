@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:alcohol_check/consumtion/consumtion.dart';
+import 'package:alcohol_check/pages/consumtion/consumtion.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
 import 'package:alcohol_check/utils/enums/gender_enum.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 
 void main() {
   runApp(MyApp());
@@ -58,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       keyboardType: TextInputType.number,
+                      cursorColor: AppColor.blackColor,
                       onChanged: (value) {
                         setState(() {
                           int? parsedHeight = int.tryParse(value);
@@ -66,9 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                         });
                       },
-                      decoration: InputDecoration(labelText: 'Längd (cm)'),
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColor.blackColor)),
+                          labelText: 'Längd (cm)',
+                          labelStyle: TextStyle(color: AppColor.blackColor)),
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -89,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       keyboardType: TextInputType.number,
+                      cursorColor: AppColor.blackColor,
                       onChanged: (value) {
                         setState(() {
                           int? parsedWeight = int.tryParse(value);
@@ -98,10 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       decoration: InputDecoration(
-                        labelText: 'Vikt (kg)',
-                      ),
+                          labelText: 'Vikt (kg)',
+                          labelStyle: TextStyle(color: AppColor.blackColor),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: AppColor.blackColor))),
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -135,8 +145,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   .toList(),
             ),
             SizedBox(height: 20.0),
+
             if (height > 0 && weight > 0)
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.blackColor,
+                  padding: EdgeInsets.all(18.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
                 onPressed: () {
                   UserData userData = UserData(
                     height: height,
@@ -159,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
- persistentFooterButtons: [CustomBottomNavigationBar()],
+      persistentFooterButtons: [CustomBottomNavigationBar()],
     );
   }
 }

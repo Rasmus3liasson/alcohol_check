@@ -1,10 +1,11 @@
-import 'package:alcohol_check/consumtion/choosen_consumtion.dart';
-import 'package:alcohol_check/consumtion/consumtion_pop_up.dart';
-import 'package:alcohol_check/consumtion_time/consumtion_time.dart';
+import 'package:alcohol_check/pages/consumtion/choosen_consumtion.dart';
+import 'package:alcohol_check/pages/consumtion/consumtion_pop_up.dart';
+import 'package:alcohol_check/pages/consumtion_time/consumtion_time.dart';
 
 import 'package:alcohol_check/models/alcohol_data.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:alcohol_check/models/user_data.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:flutter/material.dart';
@@ -53,24 +54,29 @@ class _ConsumtionState extends State<Consumtion> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if (consumtionList.isEmpty && !isVisible)
+              Text('Lägg till din dryckes mängd',
+                  style: TextStyle(fontSize: 30.0)),
             if (isVisible)
               Expanded(
-                child: AnimatedOpacity(
-                  opacity: isVisible ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 200),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: alcoholDataList.map((liqour) {
-                      return GestureDetector(
-                        onTap: () {
-                          openConsumptionPopUp(context, liqour);
-                          setState(() {
-                            isVisible = false;
-                          });
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: alcoholDataList.map((liqour) {
+                    return GestureDetector(
+                      onTap: () {
+                        openConsumptionPopUp(context, liqour);
+                        setState(() {
+                          isVisible = false;
+                        });
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
                             child: Image.asset(
                               liqour.image,
                               width: 120.0,
@@ -78,9 +84,9 @@ class _ConsumtionState extends State<Consumtion> {
                             ),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
             const SizedBox(
@@ -116,6 +122,14 @@ class _ConsumtionState extends State<Consumtion> {
                       height: 20.0,
                     ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        
+                        backgroundColor: AppColor.blackColor,
+                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -130,7 +144,7 @@ class _ConsumtionState extends State<Consumtion> {
                       child: const Text(
                         "Vidare",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 22.0,
                         ),
                       ),
                     ),
@@ -146,6 +160,7 @@ class _ConsumtionState extends State<Consumtion> {
           children: [
             const CustomBottomNavigationBar(),
             FloatingActionButton(
+              backgroundColor: AppColor.blackColor,
               onPressed: () {
                 setState(() {
                   isVisible = !isVisible;

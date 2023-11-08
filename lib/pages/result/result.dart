@@ -1,8 +1,8 @@
 import 'package:alcohol_check/main.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:alcohol_check/models/user_data.dart';
-import 'package:alcohol_check/result/drunk.dart';
-import 'package:alcohol_check/result/sober.dart';
+import 'package:alcohol_check/pages/result/drunk.dart';
+import 'package:alcohol_check/pages/result/sober.dart';
 import 'package:alcohol_check/utils/functions/calculate_result.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
@@ -59,7 +59,7 @@ class Result extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      persistentFooterButtons: [ CustomBottomNavigationBar()],
     );
   }
 }

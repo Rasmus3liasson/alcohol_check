@@ -1,6 +1,7 @@
 import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:alcohol_check/models/user_data.dart';
-import 'package:alcohol_check/result/result.dart';
+import 'package:alcohol_check/pages/result/result.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:flutter/material.dart';
@@ -103,26 +104,40 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Consumption Data:',
-                  style: TextStyle(fontSize: 20.0),
-                ),
+               Text('Välj tid',
+                  style: TextStyle(fontSize: 30.0)),
                 SizedBox(height: 20.0),
                 (endDrinkTime == null)
                     ? ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                        
+                        backgroundColor: AppColor.blackColor,
+                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
                         onPressed: () async {
                           await timeInput(context);
                           setState(() {
                             state = true;
                           });
                         },
-                        child: Text(!state ? "Start tid" : "Slut tid"),
+                        child: Text(!state ? "Start tid" : "Slut tid",style: TextStyle(fontSize: 24.0),),
                       )
                     : ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                        
+                        backgroundColor: AppColor.blackColor,
+                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
                         onPressed: () {
                           showResult();
                         },
-                        child: Text("Se Resultat"),
+                        child: Text("Se Resultat",style: TextStyle(fontSize: 24.0)),
                       ),
               ],
             ),
@@ -130,14 +145,15 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           // Container for loading
           if (isLoading)
             Container(
-              color: Colors.black.withOpacity(0.7),
+              color: AppColor.blackColor.withOpacity(0.9),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      persistentFooterButtons: [CustomBottomNavigationBar()],
+      
     );
   }
 }

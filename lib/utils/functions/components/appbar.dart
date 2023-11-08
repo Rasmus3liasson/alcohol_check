@@ -1,3 +1,4 @@
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -12,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text("Nyckerhets Kontroll"),
-      backgroundColor: Colors.black,
+      backgroundColor: AppColor.blackColor,
       elevation: 0.0,
       leading: showArrow
           ? IconButton(

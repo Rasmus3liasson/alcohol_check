@@ -1,4 +1,5 @@
 import 'package:alcohol_check/main.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-           GestureDetector(
+        GestureDetector(
           onTap: () {
             if (isDrawerVisible) {
               setState(() {
@@ -26,12 +27,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               });
             }
           },
-         ),
-        
+        ),
         BottomNavigationBar(
           backgroundColor: Colors.transparent,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
+          selectedItemColor: AppColor.blackColor,
+          unselectedItemColor: AppColor.greyColor,
           currentIndex: index,
           elevation: 0,
           onTap: (i) {
@@ -60,9 +60,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ),
           ],
         ),
-    /*     if (isDrawerVisible)
+        /*     if (isDrawerVisible)
              CustomDrawer(), */
-
       ],
     );
   }
