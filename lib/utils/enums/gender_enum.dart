@@ -1,1 +1,1 @@
-enum Gender {man,female}
+enum Gender {man,kvinna}

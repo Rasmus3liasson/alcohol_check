@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomNavigationButton extends StatefulWidget {
   final String text;
   final Widget widgetNavigation;
-  final Map<String, dynamic> data; // Use a Map to pass multiple data fields
+  final Map<String, dynamic> data;
   const CustomNavigationButton({Key? key, required this.text, required this.widgetNavigation, this.data = const {}}) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class CustomNavigationButtonState extends State<CustomNavigationButton> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.blackColor,
-        padding: EdgeInsets.all(18.0),
+        padding: EdgeInsets.all(20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -35,7 +35,7 @@ class CustomNavigationButtonState extends State<CustomNavigationButton> {
           ),
         );
       },
-      child: Text(widget.text),
+      child: Text(widget.text,style: TextStyle(fontSize: 20.0),),
     );
   }
 }

@@ -24,6 +24,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   TimeOfDay? startDrinkTime;
   TimeOfDay? endDrinkTime;
   bool state = false;
+  bool invalidTiem = false;
 
   bool isLoading = false; // Track loading state
 
@@ -159,6 +160,8 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                 ],
               ),
             ),
+
+            
             if (isLoading)
               Container(
                 color: AppColor.blackColor.withOpacity(0.9),

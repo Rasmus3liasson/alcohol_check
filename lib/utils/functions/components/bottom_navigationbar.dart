@@ -17,37 +17,71 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.transparent,
-      selectedItemColor: AppColor.blackColor,
-      unselectedItemColor: AppColor.greyColor,
-      currentIndex: index,
-      elevation: 0,
-      onTap: (i) {
-        setState(() {
-          index = i;
-        });
-        if (i == 0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyHomePage()),
-          );
-        } else {
+    print(isDrawerVisible);
+    return GestureDetector(
+      onTap: () {
+        if (isDrawerVisible) {
           setState(() {
-            isDrawerVisible = !isDrawerVisible;
+            isDrawerVisible = true;
           });
         }
       },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home, size: 32.0),
-          label: 'Hem',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_3_rounded, size: 32.0),
-          label: 'Konto',
-        ),
-      ],
+      child: Stack(
+        children: <Widget>[
+          BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            selectedItemColor: AppColor.blackColor,
+            unselectedItemColor: AppColor.greyColor,
+            currentIndex: index,
+            elevation: 0,
+            onTap: (i) {
+              setState(() {
+                index = i;
+              });
+              if (i == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+              } else {
+                setState(() {
+                  isDrawerVisible = !isDrawerVisible;
+                });
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, size: 32.0),
+                label: 'Hem',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.history_outlined, size: 32.0),
+                label: 'Historik',
+              ),
+            ],
+          ),
+          if (isDrawerVisible)
+            Row(
+              children: [
+                CustomDrawer(),
+                FillEmptySpace(),
+              ],
+            ),
+        ],
+      ),
     );
+  }
+
+  Expanded FillEmptySpace() {
+    return Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() {
+                    isDrawerVisible = !isDrawerVisible;
+                  }),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              );
   }
 }

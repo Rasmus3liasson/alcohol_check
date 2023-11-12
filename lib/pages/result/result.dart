@@ -6,6 +6,7 @@ import 'package:alcohol_check/pages/result/sober.dart';
 import 'package:alcohol_check/utils/functions/calculate_result.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
+import 'package:alcohol_check/utils/functions/components/button.dart';
 import 'package:alcohol_check/utils/functions/to_liqour.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +37,8 @@ class Result extends StatelessWidget {
       alcoholConsumed: totalLiquorVolume,
       timeDifferenceInHours: timeSinceDrinking,
     );
-
-
     return Scaffold(
+    
       appBar: CustomAppBar(),
       body: Center(
         child: Column(
@@ -47,15 +47,9 @@ class Result extends StatelessWidget {
             // result.isSober ? Sober() : Drunk(),
             Drunk(bac:result.bac),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
-                );
-              },
-              child: Text('Tillbaka till started'),
-            ),
+            SizedBox(height: 40.0,),
+
+            CustomNavigationButton(text: 'Tillbaka till hemskärmen', widgetNavigation: MyHomePage())
           ],
         ),
       ),
