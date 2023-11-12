@@ -15,7 +15,7 @@ SoberResult isSober({
   required double timeDifferenceInHours,
 }) {
   final genderNumber = gender == Gender.man ? 0.68 : 0.55;
-  final alcoholInGrams = (alcoholConsumed * 40) * 0.789; // Convert cl to grams
+  final alcoholInGrams = alcoholConsumed * 0.789; // Convert cl to grams
   final bodyWeightInGrams = weight * 1000;
 
   double bacAllDecimals =

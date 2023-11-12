@@ -1,4 +1,5 @@
 import 'package:alcohol_check/models/consumption_pop_up.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:flutter/material.dart';
 
 class ChoosenConsumtion extends StatelessWidget {
@@ -26,45 +27,58 @@ class ChoosenConsumtion extends StatelessWidget {
               openConsumptionPopUp(context);
             },
             child: Card(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      consumtionData.image,
-                      width: 100.0,
-                      height: 100.0,
-                    ),
-                    Column(
-                      children: [
-                        if (consumtionData.volume != null)
+              
+              child: Container(
+                    
+              decoration:BoxDecoration(
+                     boxShadow: [
+                            BoxShadow(
+                              color: AppColor.greyColor.withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 8,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+              ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        consumtionData.image,
+                        width: 100.0,
+                        height: 100.0,
+                      ),
+                      Column(
+                        children: [
+                          if (consumtionData.volume != null)
+                            Text(
+                              "${consumtionData.volume} ${consumtionData.unitSign}",
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.w300),
+                            ),
                           Text(
-                            "${consumtionData.volume} ${consumtionData.unitSign}",
+                            "Mängd: ${consumtionData.units} enheter/glas",
                             style: TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.w300),
                           ),
-                        Text(
-                          "Mängd: ${consumtionData.units} enheter/glas",
-                          style: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.w300),
-                        ),
-                      ],
-                    ),
-                    Flexible(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.cancel),
-                            onPressed: () {
-                              removeFromConsumtion();
-                            },
-                          ),
                         ],
                       ),
-                    ),
-                  ],
+                      Flexible(
+                        child: Column(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.cancel),
+                              onPressed: () {
+                                removeFromConsumtion();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

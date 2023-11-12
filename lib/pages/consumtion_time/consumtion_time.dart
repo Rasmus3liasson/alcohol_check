@@ -155,13 +155,12 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                           onPressed: () {
                             showResult();
                           },
-                          child: Text("Se Resultat", style: TextStyle(fontSize: 24.0)),
+                          child: Text("Se Resultat",
+                              style: TextStyle(fontSize: 24.0)),
                         ),
                 ],
               ),
             ),
-
-            
             if (isLoading)
               Container(
                 color: AppColor.blackColor.withOpacity(0.9),
@@ -176,4 +175,3 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
     );
   }
 }
-

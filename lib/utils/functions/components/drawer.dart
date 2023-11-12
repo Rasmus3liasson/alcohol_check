@@ -1,3 +1,4 @@
+import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -6,7 +7,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.green,
+      backgroundColor: AppColor.whiteColor,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -14,7 +15,7 @@ class CustomDrawer extends StatelessWidget {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: AppColor.blackColor,
               ),
               child: Center(
                 child: Row(
@@ -24,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
                       'Historik',
                       style: TextStyle(
                         fontSize: 32.0,
-                        color: Colors.white,
+                        color: AppColor.whiteColor,
                         decoration: TextDecoration.underline,
                       ),
                     ),
@@ -44,12 +45,12 @@ class CustomDrawer extends StatelessWidget {
                     ListTile(
                       title: Container(
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: AppColor.blackColor,
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(15.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
+                              color: AppColor.greyColor.withOpacity(0.2),
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset: Offset(0, 3),
@@ -62,6 +63,7 @@ class CustomDrawer extends StatelessWidget {
                             child: Text(
                               'Item 1',
                               style: TextStyle(
+                                color: AppColor.whiteColor,
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
                               ),

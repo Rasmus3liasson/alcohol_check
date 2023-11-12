@@ -24,10 +24,15 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    
     double totalLiquorVolume = 0.0;
     for (var data in consumtionData) {
       double? volumeInLiquor = toLiquor(data.unitSign, data.volume, data.units);
       totalLiquorVolume += volumeInLiquor! * data.units!.toDouble();
+
+      print(totalLiquorVolume);
+      print(timeSinceDrinking);
     }
 
     SoberResult result = isSober(
@@ -38,14 +43,15 @@ class Result extends StatelessWidget {
       timeDifferenceInHours: timeSinceDrinking,
     );
     return Scaffold(
+      
     
       appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // result.isSober ? Sober() : Drunk(),
-            Drunk(bac:result.bac),
+             result.isSober ? Sober(bac:result.bac) : Drunk(bac:result.bac),
+            
 
             SizedBox(height: 40.0,),
 

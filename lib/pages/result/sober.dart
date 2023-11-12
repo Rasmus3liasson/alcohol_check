@@ -19,7 +19,7 @@ final double bac;
         SizedBox(
           height: 80.0,
         ),
-        const Text('Det är bara ut o köra',style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold),)
+        const Text('Det är bara ut o köra 😃',style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold),)
       ],
     ));
   }
