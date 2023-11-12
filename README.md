@@ -1,16 +1,33 @@
-# alcohol_check
+# Alkoholkontrollprojekt
 
-A new Flutter project.
+## Projektöversikt
 
-## Getting Started
+Alkoholkontrollprojektet är utformat för att beräkna blodalkoholhalt (BAC) baserat på användarinmatning och ger information om nykterhet som visar om man är redo nyker för att köra bil.
 
-This project is a starting point for a Flutter application.
+## Att göra-lista
 
-A few resources to get you started if this is your first Flutter project:
+### Saker som jag ännu inte inkluderat men som jobbas på för att definera detta som klar.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Förbättra noggrannheten i BAC-beräkningen: Granska och förbättra noggrannheten i BAC-beräkningarna**.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Förbättringar av användargränssnittet: Förbättra användargränssnittet för en bättre användarupplevelse**.
+
+- **Inkludera historik om tidigare beräkningar i drawern som ligger tillgänglig**.
+
+- **Skapa en google inloggning med firebase för att spara användarens uppgifter i form av längd, vikt och kön**.
+
+## Komma igång
+
+För att använda detta projekt, följ dessa steg:
+
+1. **Klona Projektet:**
+   ```bash
+   git clone https://github.com/Rasmus3liasson/alcohol_check.git
+
+2. **Installera:**
+   ```bash
+   flutter pub get
+3. **Kör i din valda simulator:**
+   ```bash
+   flutter run     
+   
