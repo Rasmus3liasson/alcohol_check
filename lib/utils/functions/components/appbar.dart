@@ -23,6 +23,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(Icons.arrow_back_ios_rounded),
             )
           : null,
+          actions: [
+        Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Center(
+            child: IconButton(
+              onPressed: () {
+              // Will direct to googler sign in later on
+              },
+              icon: const Icon(Icons.account_circle_sharp,size:35,),
+            ),
+          ),
+        ),
+      ],
+          
     );
   }
 }
