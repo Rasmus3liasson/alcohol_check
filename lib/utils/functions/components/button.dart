@@ -21,7 +21,7 @@ class CustomNavigationButtonState extends State<CustomNavigationButton> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.blackColor,
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -35,7 +35,7 @@ class CustomNavigationButtonState extends State<CustomNavigationButton> {
           ),
         );
       },
-      child: Text(widget.text,style: TextStyle(fontSize: 20.0),),
+      child: Text(widget.text,style: const TextStyle(fontSize: 20.0),),
     );
   }
 }

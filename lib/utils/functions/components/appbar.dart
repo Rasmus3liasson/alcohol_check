@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showArrow;
 
-  CustomAppBar({this.showArrow = false});
+  const CustomAppBar({super.key, this.showArrow = false});
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Nyckerhets Kontroll"),
+      title: const Text("Nyckerhets Kontroll"),
       backgroundColor: AppColor.blackColor,
       elevation: 0.0,
       leading: showArrow
@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              icon: Icon(Icons.arrow_back_ios_rounded),
+              icon: const Icon(Icons.arrow_back_ios_rounded),
             )
           : null,
           actions: [

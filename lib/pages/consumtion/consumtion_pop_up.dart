@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ConsumptionPopUp extends StatefulWidget {
   final AlcoholData alcoholData;
 
-  ConsumptionPopUp({required this.alcoholData});
+  const ConsumptionPopUp({super.key, required this.alcoholData});
 
   static Future<ConsumptionPopUpData?> showPopUp(
       BuildContext context, AlcoholData alcoholData) async {
@@ -77,7 +77,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  icon: Icon(Icons.cancel),
+                  icon: const Icon(Icons.cancel),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -89,7 +89,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
               width: 350.0,
               height: 350.0,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             if (widget.alcoholData.volume != null)
               Column(
                 children: [
@@ -104,11 +104,11 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                     items: (widget.alcoholData.volume)?.map((value) {
                       return DropdownMenuItem<int>(
                         value: value,
-                        child: Text('${value.toString()} ${unitSign}'),
+                        child: Text('${value.toString()} $unitSign'),
                       );
                     }).toList(),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                 ],
               ),
             Column(
@@ -130,13 +130,13 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             ElevatedButton(
                style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.blackColor, 
-                    padding: EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(18.0),
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(30.0), 
@@ -152,7 +152,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
       
                 Navigator.of(context).pop(resultData);
               },
-              child: Text("Lägg till"),
+              child: const Text("Lägg till"),
               
             )
           ],

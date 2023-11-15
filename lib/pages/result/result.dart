@@ -45,7 +45,7 @@ class Result extends StatelessWidget {
     return Scaffold(
       
     
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,13 +53,13 @@ class Result extends StatelessWidget {
              result.isSober ? Sober(bac:result.bac) : Drunk(bac:result.bac),
             
 
-            SizedBox(height: 40.0,),
+            const SizedBox(height: 40.0,),
 
-            CustomNavigationButton(text: 'Tillbaka till hemskärmen', widgetNavigation: MyHomePage())
+            const CustomNavigationButton(text: 'Tillbaka till hemskärmen', widgetNavigation: MyHomePage())
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

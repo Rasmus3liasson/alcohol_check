@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 class AppColor {
   AppColor._();
   static const Color blackColor = Colors.black;

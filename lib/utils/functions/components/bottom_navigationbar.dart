@@ -41,7 +41,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               if (i == 0) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
                 );
               } else {
                 setState(() {
@@ -63,7 +63,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           if (isDrawerVisible)
             Row(
               children: [
-                CustomDrawer(),
+                const CustomDrawer(),
                 FillEmptySpace(),
               ],
             ),

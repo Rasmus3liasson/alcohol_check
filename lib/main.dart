@@ -7,7 +7,6 @@ import 'package:alcohol_check/utils/functions/components/button.dart';
 import 'package:flutter/material.dart';
 import 'models/user_data.dart';
 import 'package:alcohol_check/utils/enums/gender_enum.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +15,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -37,6 +38,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }

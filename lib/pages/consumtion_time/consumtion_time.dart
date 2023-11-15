@@ -53,7 +53,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
     });
 
     // Simulate loading delay
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     setState(() {
       isLoading = false;
@@ -100,7 +100,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Center(
         child: Stack(
           children: [
@@ -112,21 +112,21 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                     startDrinkTime == null
                         ? 'Välj tid'
                         : 'Starttid: ${startDrinkTime.toString().substring(10, 15)}',
-                    style: TextStyle(fontSize: 30.0),
+                    style: const TextStyle(fontSize: 30.0),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     endDrinkTime == null
                         ? ''
                         : 'Sluttid: ${endDrinkTime.toString().substring(10, 15)}',
-                    style: TextStyle(fontSize: 30.0),
+                    style: const TextStyle(fontSize: 30.0),
                   ),
-                  SizedBox(height: 50.0),
+                  const SizedBox(height: 50.0),
                   (endDrinkTime == null)
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.blackColor,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 40.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
@@ -140,13 +140,13 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                           },
                           child: Text(
                             !state ? "Start tid" : "Slut tid",
-                            style: TextStyle(fontSize: 24.0),
+                            style: const TextStyle(fontSize: 24.0),
                           ),
                         )
                       : ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.blackColor,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 40.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
@@ -155,7 +155,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                           onPressed: () {
                             showResult();
                           },
-                          child: Text("Se Resultat",
+                          child: const Text("Se Resultat",
                               style: TextStyle(fontSize: 24.0)),
                         ),
                 ],
@@ -164,14 +164,14 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
             if (isLoading)
               Container(
                 color: AppColor.blackColor.withOpacity(0.9),
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               ),
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

@@ -50,13 +50,13 @@ class _ConsumtionState extends State<Consumtion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               if (consumtionList.isEmpty && !isVisible)
-                Text('Lägg till din dryckes mängd',
+                const Text('Lägg till din dryckes mängd',
                     style: TextStyle(fontSize: 30.0)),
               if (isVisible)
                 Expanded(
@@ -105,7 +105,7 @@ class _ConsumtionState extends State<Consumtion> {
                           fontSize: 40.0,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30.0,
                       ),
                       // Display the ChoosenConsumtion widgets

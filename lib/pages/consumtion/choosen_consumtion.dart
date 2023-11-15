@@ -7,7 +7,7 @@ class ChoosenConsumtion extends StatelessWidget {
   final Function removeFromConsumtion;
   final Function(BuildContext) openConsumptionPopUp;
 
-  ChoosenConsumtion({
+  const ChoosenConsumtion({super.key, 
     required this.consumtionData,
     required this.removeFromConsumtion,
     required this.openConsumptionPopUp,
@@ -15,11 +15,11 @@ class ChoosenConsumtion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 350.0,
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20.0,
           ),
           GestureDetector(
@@ -36,7 +36,7 @@ class ChoosenConsumtion extends StatelessWidget {
                               color: AppColor.greyColor.withOpacity(0.2),
                               spreadRadius: 3,
                               blurRadius: 8,
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                             ),
                           ],
               ),
@@ -55,12 +55,12 @@ class ChoosenConsumtion extends StatelessWidget {
                           if (consumtionData.volume != null)
                             Text(
                               "${consumtionData.volume} ${consumtionData.unitSign}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20.0, fontWeight: FontWeight.w300),
                             ),
                           Text(
                             "Mängd: ${consumtionData.units} enheter/glas",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.w300),
                           ),
                         ],
@@ -69,7 +69,7 @@ class ChoosenConsumtion extends StatelessWidget {
                         child: Column(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.cancel),
+                              icon: const Icon(Icons.cancel),
                               onPressed: () {
                                 removeFromConsumtion();
                               },
