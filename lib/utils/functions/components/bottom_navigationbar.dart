@@ -1,33 +1,45 @@
 import 'package:alcohol_check/main.dart';
+import 'package:flutter/material.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/drawer.dart';
-import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key});
+  CustomBottomNavigationBar({super.key});
 
   @override
   State<CustomBottomNavigationBar> createState() =>
       _CustomBottomNavigationBarState();
 }
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
+    with TickerProviderStateMixin {
   int index = 0;
   bool isDrawerVisible = false;
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 250),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(isDrawerVisible);
     return GestureDetector(
       onTap: () {
         if (isDrawerVisible) {
           setState(() {
-            isDrawerVisible = true;
+            isDrawerVisible = !isDrawerVisible;
           });
         }
       },
       child: Stack(
         children: <Widget>[
+          if(!isDrawerVisible)
           BottomNavigationBar(
             backgroundColor: Colors.transparent,
             selectedItemColor: AppColor.blackColor,
@@ -45,7 +57,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 );
               } else {
                 setState(() {
-                  isDrawerVisible = !isDrawerVisible;
+                  isDrawerVisible = true;
+                  animationController.forward();
                 });
               }
             },
@@ -61,11 +74,25 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ],
           ),
           if (isDrawerVisible)
-            Row(
-              children: [
-                const CustomDrawer(),
-                FillEmptySpace(),
-              ],
+            AnimatedBuilder(
+              animation: animationController,
+              builder: (context, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(-1.3, 0.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(CurvedAnimation(
+                    parent: animationController,
+                    curve: Curves.easeInOut,
+                  )),
+                  child: Row(
+                    children: [
+                      const CustomDrawer(),
+                      FillEmptySpace(),
+                    ],
+                  ),
+                );
+              },
             ),
         ],
       ),
@@ -74,14 +101,21 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   Expanded FillEmptySpace() {
     return Expanded(
-                child: GestureDetector(
-                  onTap: () => setState(() {
-                    isDrawerVisible = !isDrawerVisible;
-                  }),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                ),
-              );
+      child: GestureDetector(
+        onTap: () => setState(() {
+          isDrawerVisible = !isDrawerVisible;
+          animationController.reverse();
+        }),
+        child: Container(
+          color: Colors.transparent,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }

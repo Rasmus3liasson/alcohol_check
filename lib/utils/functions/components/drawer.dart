@@ -7,6 +7,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: 340.0,
       backgroundColor: AppColor.whiteColor,
       child: Center(
         child: Column(

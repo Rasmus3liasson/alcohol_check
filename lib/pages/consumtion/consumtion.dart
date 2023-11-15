@@ -140,7 +140,7 @@ class _ConsumtionState extends State<Consumtion> {
         bottomNavigationBar: Stack(
           alignment: Alignment.center,
           children: [
-            const CustomBottomNavigationBar(),
+            CustomBottomNavigationBar(),
             Positioned(
               top: 0,
               child: FloatingActionButton(

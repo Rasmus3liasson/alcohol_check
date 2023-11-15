@@ -171,7 +171,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
