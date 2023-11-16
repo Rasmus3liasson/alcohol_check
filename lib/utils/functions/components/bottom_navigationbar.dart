@@ -39,40 +39,40 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       },
       child: Stack(
         children: <Widget>[
-          if(!isDrawerVisible)
-          BottomNavigationBar(
-            backgroundColor: Colors.transparent,
-            selectedItemColor: AppColor.blackColor,
-            unselectedItemColor: AppColor.greyColor,
-            currentIndex: index,
-            elevation: 0,
-            onTap: (i) {
-              setState(() {
-                index = i;
-              });
-              if (i == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              } else {
+          if (!isDrawerVisible)
+            BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              selectedItemColor: AppColor.whiteColor,
+              unselectedItemColor: AppColor.greyColor,
+              currentIndex: index,
+              elevation: 0,
+              onTap: (i) {
                 setState(() {
-                  isDrawerVisible = true;
-                  animationController.forward();
+                  index = i;
                 });
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 32.0),
-                label: 'Hem',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.history_outlined, size: 32.0),
-                label: 'Historik',
-              ),
-            ],
-          ),
+                if (i == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyHomePage()),
+                  );
+                } else {
+                  setState(() {
+                    isDrawerVisible = !isDrawerVisible;
+                    animationController.forward();
+                  });
+                }
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, size: 32.0),
+                  label: 'Hem',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.history_outlined, size: 32.0),
+                  label: 'Historik',
+                ),
+              ],
+            ),
           if (isDrawerVisible)
             AnimatedBuilder(
               animation: animationController,

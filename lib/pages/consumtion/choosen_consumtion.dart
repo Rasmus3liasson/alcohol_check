@@ -7,7 +7,8 @@ class ChoosenConsumtion extends StatelessWidget {
   final Function removeFromConsumtion;
   final Function(BuildContext) openConsumptionPopUp;
 
-  const ChoosenConsumtion({super.key, 
+  const ChoosenConsumtion({
+    super.key,
     required this.consumtionData,
     required this.removeFromConsumtion,
     required this.openConsumptionPopUp,
@@ -16,7 +17,7 @@ class ChoosenConsumtion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 350.0,
+      width: 380.0,
       child: Column(
         children: [
           const SizedBox(
@@ -27,19 +28,17 @@ class ChoosenConsumtion extends StatelessWidget {
               openConsumptionPopUp(context);
             },
             child: Card(
-              
               child: Container(
-                    
-              decoration:BoxDecoration(
-                     boxShadow: [
-                            BoxShadow(
-                              color: AppColor.greyColor.withOpacity(0.2),
-                              spreadRadius: 3,
-                              blurRadius: 8,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-              ),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.greyColor.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 8,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
                   child: Row(
@@ -65,16 +64,15 @@ class ChoosenConsumtion extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Flexible(
-                        child: Column(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.cancel),
-                              onPressed: () {
-                                removeFromConsumtion();
-                              },
-                            ),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 70.0),
+                        child: Flexible(
+                          child: IconButton(
+                            icon: const Icon(Icons.cancel_outlined,color: AppColor.greyColor,),
+                            onPressed: () {
+                              removeFromConsumtion();
+                            },
+                          ),
                         ),
                       ),
                     ],

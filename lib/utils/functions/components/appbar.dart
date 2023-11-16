@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: const Text("Nyckerhets Kontroll"),
-      backgroundColor: AppColor.blackColor,
+      backgroundColor: Colors.transparent,
       elevation: 0.0,
       leading: showArrow
           ? IconButton(

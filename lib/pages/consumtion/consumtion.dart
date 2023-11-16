@@ -151,8 +151,8 @@ class _ConsumtionState extends State<Consumtion> {
                   });
                 },
                 child: !isVisible
-                    ? const Icon(Icons.add_sharp)
-                    : const Icon(Icons.close),
+                    ? const Icon(Icons.add_sharp,color: AppColor.whiteColor,)
+                    : const Icon(Icons.close,color: AppColor.whiteColor,),
               ),
             ),
           ],

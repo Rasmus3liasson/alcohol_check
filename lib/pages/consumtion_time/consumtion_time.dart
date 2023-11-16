@@ -163,7 +163,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
             ),
             if (isLoading)
               Container(
-                color: AppColor.blackColor.withOpacity(0.9),
+                color: AppColor.blackColor.withOpacity(0.5),
                 child: const Center(
                   child: CircularProgressIndicator(),
                 ),
