@@ -9,8 +9,12 @@ import 'models/user_data.dart';
 import 'package:alcohol_check/utils/enums/gender_enum.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+   
   runApp(MyApp());
 }
 
@@ -75,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Text(
             'Vänligen fyll i dina uppgifter:',
-            style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 38.0, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: 20.0),
           // Height input field

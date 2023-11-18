@@ -1,4 +1,5 @@
 import 'package:alcohol_check/utils/constans/color.dart';
+import 'package:alcohol_check/utils/functions/google.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,20 +24,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: const Icon(Icons.arrow_back_ios_rounded),
             )
           : null,
-          actions: [
+      actions: [
         Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Center(
             child: IconButton(
-              onPressed: () {
-              // Will direct to googler sign in later on
+              onPressed: () async {
+                Map<String, dynamic> result = await signInGoogle();
+
+                if (result['result'] != null) {
+                  // Successful sign-in
+                  print('User signed in: ${result['result']!.displayName}');
+                } else {
+                  // Handle sign-in error
+                  print('Sign-in error: ${result['error']}');
+                }
               },
-              icon: const Icon(Icons.account_circle_sharp,size:35,),
+              icon: const Icon(Icons.account_circle_sharp, size: 35),
             ),
           ),
         ),
       ],
-          
     );
   }
 }
