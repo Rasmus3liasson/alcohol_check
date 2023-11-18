@@ -24,8 +24,6 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    
     double totalLiquorVolume = 0.0;
     for (var data in consumtionData) {
       double? volumeInLiquor = toLiquor(data.unitSign, data.volume, data.units);
@@ -43,19 +41,18 @@ class Result extends StatelessWidget {
       timeDifferenceInHours: timeSinceDrinking,
     );
     return Scaffold(
-      
-    
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             result.isSober ? Sober(bac:result.bac) : Drunk(bac:result.bac),
-            
-
-            const SizedBox(height: 40.0,),
-
-            const CustomNavigationButton(text: 'Tillbaka till hemskärmen', widgetNavigation: MyHomePage())
+            result.isSober ? Sober(bac: result.bac) : Drunk(bac: result.bac),
+            const SizedBox(
+              height: 40.0,
+            ),
+            const CustomNavigationButton(
+                text: 'Tillbaka till hemskärmen',
+                widgetNavigation: MyHomePage())
           ],
         ),
       ),

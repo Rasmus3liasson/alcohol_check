@@ -100,7 +100,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar:CustomAppBar(),
       body: Center(
         child: Stack(
           children: [

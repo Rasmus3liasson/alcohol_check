@@ -2,21 +2,33 @@ import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/google.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showArrow;
 
-  const CustomAppBar({super.key, this.showArrow = false});
+  CustomAppBar({Key? key, this.showArrow = false}) : super(key: key);
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  Map<String, dynamic> result = {};
 
   @override
   Widget build(BuildContext context) {
+    print('Building CustomAppBar');
     return AppBar(
-      title: const Text("Nyckerhets Kontroll"),
+      title: const Text(
+        "Nyckerhets Kontroll",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 25.0),
+      ),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      leading: showArrow
+      leading: widget.showArrow
           ? IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -30,17 +42,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Center(
             child: IconButton(
               onPressed: () async {
-                Map<String, dynamic> result = await signInGoogle();
+                Map<String, dynamic> data = await signInGoogle();
+                setState(() {
+                  result = data;
+                });
 
-                if (result['result'] != null) {
-                  // Successful sign-in
-                  print('User signed in: ${result['result']!.displayName}');
-                } else {
-                  // Handle sign-in error
+                if (result['result'] == null) {
                   print('Sign-in error: ${result['error']}');
                 }
               },
-              icon: const Icon(Icons.account_circle_sharp, size: 35),
+              icon: result['result'] != null
+                  ? CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage: NetworkImage(result['result'].photoURL),
+                    )
+                  : const Icon(Icons.account_circle_sharp, size: 35),
             ),
           ),
         ),
