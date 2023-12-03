@@ -1,11 +1,10 @@
-import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/google.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showArrow;
 
-  CustomAppBar({Key? key, this.showArrow = false}) : super(key: key);
+  const CustomAppBar({Key? key, this.showArrow = false}) : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -19,7 +18,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    print('Building CustomAppBar');
     return AppBar(
       title: const Text(
         "Nyckerhets Kontroll",
@@ -49,6 +47,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
                 if (result['result'] == null) {
                   print('Sign-in error: ${result['error']}');
+                } else {
+                  print('Sign-in successful! User data: ${result['result']}');
                 }
               },
               icon: result['result'] != null

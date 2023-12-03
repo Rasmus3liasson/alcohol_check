@@ -1,10 +1,10 @@
 import 'package:alcohol_check/main.dart';
-import 'package:flutter/material.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/drawer.dart';
+import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  CustomBottomNavigationBar({super.key});
+  const CustomBottomNavigationBar({super.key});
 
   @override
   State<CustomBottomNavigationBar> createState() =>
