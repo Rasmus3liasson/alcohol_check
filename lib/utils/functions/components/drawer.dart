@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:alcohol_check/main.dart';
 import 'package:alcohol_check/models/account_data.dart';
+import 'package:alcohol_check/models/history_data.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
+import 'package:alcohol_check/utils/functions/user_data.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -14,11 +18,20 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   AccountData? userResult;
+  List<HistoryData?> historyData = [];
 
   @override
   void initState() {
     super.initState();
     _getUserResult();
+  }
+
+  Future<void> setHistoryData() async {
+    List<HistoryData>? retrievedData = await getUserData();
+
+    setState(() {
+      historyData = retrievedData;
+    });
   }
 
   Future<void> _getUserResult() async {
@@ -31,11 +44,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
         userResult = AccountData.fromJson(userResultMap);
       });
     }
+    setHistoryData();
   }
 
-  Future<void> _signOut() async {
+  Future<void> _signOut(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('userResult');
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const MyApp()));
   }
 
   @override
@@ -78,7 +94,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              await _signOut();
+                              await _signOut(context);
                             },
                             child: const Icon(Icons.logout_rounded, size: 50.0),
                           ),
@@ -100,9 +116,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 child: userResult != null
                     ? ListView(
                         scrollDirection: Axis.vertical,
-                        children: [
-                          ListTile(
+                        children: (historyData).map((entry) {
+                          return ListTile(
                             title: Container(
+                              margin: const EdgeInsets.only(bottom: 30.0),
                               decoration: BoxDecoration(
                                 color: AppColor.blackColor,
                                 shape: BoxShape.rectangle,
@@ -116,35 +133,48 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   ),
                                 ],
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(30.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(30.0),
                                 child: Center(
-                                  child: Text(
-                                    'item',
-                                    style: TextStyle(
-                                      color: AppColor.whiteColor,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        DateFormat('dd/MM-yy')
+                                            .format(entry!.date),
+                                        style: const TextStyle(
+                                          color: AppColor.whiteColor,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20.0),
+                                      Text(
+                                        'Promile: ${entry.bacResult}',
+                                        style: const TextStyle(
+                                            color: AppColor.whiteColor,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          );
+                        }).toList(),
                       )
                     : const Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        'Du måste logga in för att se historik',
-                        style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 30.0,
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          'Du måste logga in för att se historik',
+                          style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 30.0,
                             fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
               ),
             ),
           ],
