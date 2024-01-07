@@ -32,7 +32,7 @@ class ChoosenConsumtion extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.greyColor.withOpacity(0.2),
+                      color: AppColor.blackColor.withOpacity(0.2),
                       spreadRadius: 3,
                       blurRadius: 8,
                       offset: const Offset(0, 1),
@@ -65,7 +65,7 @@ class ChoosenConsumtion extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 70.0),
+                        padding: const EdgeInsets.only(bottom: 70.0),
                         child: Flexible(
                           child: IconButton(
                             icon: const Icon(Icons.cancel_outlined,color: AppColor.greyColor,),

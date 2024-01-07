@@ -1,9 +1,43 @@
+import 'dart:convert';
+
+import 'package:alcohol_check/models/account_data.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
-  
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  AccountData? userResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserResult();
+  }
+
+  Future<void> _getUserResult() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? prefResult = prefs.getString('userResult');
+    if (prefResult != null) {
+      Map<String, dynamic> userResultMap = jsonDecode(prefResult);
+
+      setState(() {
+        userResult = AccountData.fromJson(userResultMap);
+      });
+    }
+  }
+
+  Future<void> _signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('userResult');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -14,25 +48,47 @@ class CustomDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: AppColor.blackColor,
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Historik',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        color: AppColor.whiteColor,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                ),
+            SizedBox(
+              width: double.infinity,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(color: AppColor.blackColor),
+                child: userResult != null
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 30.0, top: 70.0),
+                            child: SizedBox(
+                              child: Text(
+                                userResult!.name
+                                        .split(" ")
+                                        .first[0]
+                                        .toUpperCase() +
+                                    userResult!.name
+                                        .split(" ")
+                                        .first
+                                        .substring(1),
+                                style: const TextStyle(
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              await _signOut();
+                            },
+                            child: const Icon(Icons.logout_rounded, size: 50.0),
+                          ),
+                        ],
+                      )
+                    : const Center(
+                        child: Text(
+                        'Historik',
+                        style: TextStyle(fontSize: 35.0),
+                      )),
               ),
             ),
             const SizedBox(
@@ -41,44 +97,56 @@ class CustomDrawer extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    ListTile(
-                      title: Container(
-                        decoration: BoxDecoration(
-                          color: AppColor.blackColor,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.greyColor.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(30.0),
-                          child: Center(
-                            child: Text(
-                              'Item 1',
-                              style: TextStyle(
-                                color: AppColor.whiteColor,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
+                child: userResult != null
+                    ? ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          ListTile(
+                            title: Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.blackColor,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(15.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColor.greyColor.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(30.0),
+                                child: Center(
+                                  child: Text(
+                                    'item',
+                                    style: TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
+                        ],
+                      )
+                    : const Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        'Du måste logga in för att se historik',
+                        style: TextStyle(
+                          color: AppColor.blackColor,
+                          fontSize: 30.0,
+                            fontWeight: FontWeight.w500,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
-                ),
               ),
             ),
-            
           ],
         ),
       ),

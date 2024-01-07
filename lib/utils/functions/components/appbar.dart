@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:alcohol_check/models/account_data.dart';
 import 'package:alcohol_check/utils/functions/google.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showArrow;
@@ -14,7 +18,28 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  Map<String, dynamic> result = {};
+  AccountData? accountData;
+
+  @override
+  void initState() {
+    super.initState();
+    loadPref();
+  }
+
+  Future<void> loadPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? prefResult = prefs.getString('userResult');
+    if (prefResult == null) {
+      setState(() {
+        accountData = null;
+      });
+    } else {
+      Map<String, dynamic> userResultMap = jsonDecode(prefResult);
+      setState(() {
+        accountData = AccountData.fromJson(userResultMap);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +63,25 @@ class _CustomAppBarState extends State<CustomAppBar> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Center(
-            child: IconButton(
-              onPressed: () async {
-                Map<String, dynamic> data = await signInGoogle();
-                setState(() {
-                  result = data;
-                });
+            child: accountData == null
+                ? IconButton(
+                    onPressed: () async {
+                      Map<String, dynamic> data = await signInGoogle();
+                      if (data['result'] != null) {
+                        setState(() {
+                          accountData = data['result'];
+                        });
 
-                if (result['result'] == null) {
-                  print('Sign-in error: ${result['error']}');
-                } else {
-                  print('Sign-in successful! User data: ${result['result']}');
-                }
-              },
-              icon: result['result'] != null
-                  ? CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage: NetworkImage(result['result'].photoURL),
-                    )
-                  : const Icon(Icons.account_circle_sharp, size: 35),
-            ),
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setString(
+                            'userResult', jsonEncode(accountData!.toJson()));
+                      }
+                    },
+                    
+                    icon: const Icon(Icons.account_circle_sharp, size: 35.0),
+                  )
+                :Container()
           ),
         ),
       ],

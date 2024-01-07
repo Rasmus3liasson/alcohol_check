@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:alcohol_check/pages/consumtion/consumtion.dart';
+import 'package:alcohol_check/utils/constans/color.dart';
+import 'package:alcohol_check/utils/enums/gender_enum.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:alcohol_check/utils/functions/components/button.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'models/user_data.dart';
-import 'package:alcohol_check/utils/enums/gender_enum.dart';
-import 'package:alcohol_check/utils/constans/color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'models/user_data.dart';
 
 
 
@@ -177,8 +177,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 .map<DropdownMenuItem<Gender>>(
                   (Gender value) => DropdownMenuItem<Gender>(
                     value: value,
-                    child: Text(
-                      '${value.toString().split('.').last[0].toUpperCase()}${value.toString().split('.').last.substring(1)}',
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        '${value.toString().split('.').last[0].toUpperCase()}${value.toString().split('.').last.substring(1)}',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 )
