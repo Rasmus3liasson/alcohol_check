@@ -12,12 +12,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'models/user_data.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-   
+  await Firebase.initializeApp().then((value) {
+    print('Firebase initialized successfully!');
+  });
+
   runApp(MyApp());
 }
 
@@ -28,14 +28,9 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-
-
 class _MyAppState extends State<MyApp> {
-  
-  
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       title: 'User Information',
       debugShowCheckedModeBanner: false,

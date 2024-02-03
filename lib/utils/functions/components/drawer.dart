@@ -23,7 +23,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   void initState() {
     super.initState();
-    _getUserResult();
+    getUserResult();
   }
 
   Future<void> setHistoryData() async {
@@ -34,7 +34,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     });
   }
 
-  Future<void> _getUserResult() async {
+  Future<void> getUserResult() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? prefResult = prefs.getString('userResult');
     if (prefResult != null) {
@@ -44,10 +44,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
         userResult = AccountData.fromJson(userResultMap);
       });
     }
+
     setHistoryData();
   }
 
-  Future<void> _signOut(BuildContext context) async {
+  Future<void> signOut(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('userResult');
     Navigator.of(context)
@@ -94,7 +95,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              await _signOut(context);
+                              await signOut(context);
                             },
                             child: const Icon(Icons.logout_rounded, size: 50.0),
                           ),

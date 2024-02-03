@@ -23,15 +23,11 @@ Future<List<HistoryData>> getUserData() async {
           isSober: entry['is_sober'],
         );
       }).toList();
-
       return historyDataList;
     } else {
       return [];
     }
   } catch (e) {
-    print("Error fetching user data: $e");
     return [];
   }
 }
-
-
