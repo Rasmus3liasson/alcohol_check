@@ -6,6 +6,7 @@ import 'package:alcohol_check/utils/enums/gender_enum.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:alcohol_check/utils/functions/components/button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp().then((value) {
     print('Firebase initialized successfully!');
   });
+  FirebaseFirestore.instance.settings = Settings(persistenceEnabled: true);
 
   runApp(MyApp());
 }

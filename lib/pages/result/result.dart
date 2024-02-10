@@ -11,8 +11,8 @@ import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:alcohol_check/utils/functions/components/button.dart';
 import 'package:alcohol_check/utils/functions/to_liqour.dart';
-// Assuming you have these imports
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +34,7 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   AccountData? accountData;
+  User? user = FirebaseAuth.instance.currentUser;
   final CollectionReference resultCollection =
       FirebaseFirestore.instance.collection('user');
 
@@ -56,25 +57,36 @@ class _ResultState extends State<Result> {
     }
   }
 
-Future<void> postResultToFirestore(
-    String userId, double bac, bool isSober) async {
-  try {
-    await resultCollection.doc(userId).set({
-      'bac_result': bac,
-      'date': FieldValue.serverTimestamp(),
-      'is_sober': isSober,
-    });
-    print('Result posted to Firestore successfully!');
-  } catch (e) {
-    print('Error posting result to Firestore: $e');
+  Future<void> postResultToFirestore(
+      String userId, double bac, bool isSober) async {
+    try {
+      if (user == null) {
+        return;
+      }
+      // Create a new object for the result data
+      Map<String, dynamic> resultData = {
+        'bac_result': bac,
+        'date': FieldValue.serverTimestamp(),
+        'is_sober': isSober,
+      };
+
+      // Get a reference to the user's document
+      DocumentReference userDocRef = resultCollection.doc(userId);
+
+      // Add a new document to a subcollection named 'results'
+      await userDocRef.collection('results').add(resultData);
+
+      print('Result posted to Firestore successfully!');
+    } catch (e) {
+      print('Error posting result to Firestore: $e');
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     double totalLiquorVolume = 0.0;
     for (var data in widget.consumtionData) {
-      double? volumeInLiquor =
-          toLiquor(data.unitSign, data.volume, data.units);
+      double? volumeInLiquor = toLiquor(data.unitSign, data.volume, data.units);
       totalLiquorVolume += volumeInLiquor! * data.units!.toDouble();
     }
 
@@ -85,6 +97,8 @@ Future<void> postResultToFirestore(
       alcoholConsumed: totalLiquorVolume,
       timeDifferenceInHours: widget.timeSinceDrinking,
     );
+
+    postResultToFirestore(accountData!.uid, result.bac, result.isSober);
 
     return Scaffold(
       appBar: const CustomAppBar(),
@@ -99,20 +113,6 @@ Future<void> postResultToFirestore(
             const CustomNavigationButton(
               text: 'Tillbaka till hemskärmen',
               widgetNavigation: MyApp(),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (accountData != null) {
-                  postResultToFirestore(
-                    accountData!.uid,
-                    result.bac,
-                    result.isSober,
-                  );
-                } else {
-                  print('User data not available');
-                }
-              },
-              child: const Text('Post Result to Firestore'),
             ),
           ],
         ),

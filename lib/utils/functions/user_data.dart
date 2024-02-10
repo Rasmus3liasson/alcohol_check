@@ -6,28 +6,24 @@ Future<List<HistoryData>> getUserData() async {
   User? user = FirebaseAuth.instance.currentUser;
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('user');
-  DocumentSnapshot userDoc = await usersCollection.doc(user!.uid).get();
 
   try {
-    if (userDoc.exists) {
-      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+    // Retrieve all documents from user
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await usersCollection.doc(user!.uid).collection('results').get();
 
-      // Explicitly cast 'data' to List<Map<String, dynamic>>
-      List<Map<String, dynamic>> entries =
-          (userData['data'] as List<dynamic>).cast<Map<String, dynamic>>();
+    List<HistoryData> historyDataList = querySnapshot.docs.map((doc) {
+      // Map document to history data object
+      return HistoryData(
+        date: doc['date'].toDate(),
+        bacResult: (doc['bac_result'] as num).toDouble(),
+        isSober: doc['is_sober'],
+      );
+    }).toList();
 
-      List<HistoryData> historyDataList = entries.map((entry) {
-        return HistoryData(
-          date: entry['date'].toDate(),
-          bacResult: entry['bac_result'],
-          isSober: entry['is_sober'],
-        );
-      }).toList();
-      return historyDataList;
-    } else {
-      return [];
-    }
+    return historyDataList;
   } catch (e) {
+    print('Error retrieving user data: $e');
     return [];
   }
 }

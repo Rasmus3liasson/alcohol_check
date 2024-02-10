@@ -32,6 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     setState(() {
       historyData = retrievedData;
     });
+    print(retrievedData);
   }
 
   Future<void> getUserResult() async {
