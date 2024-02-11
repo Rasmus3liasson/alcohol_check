@@ -1,10 +1,9 @@
-import 'package:alcohol_check/pages/consumtion/choosen_consumtion.dart';
-import 'package:alcohol_check/pages/consumtion/consumtion_pop_up.dart';
-import 'package:alcohol_check/pages/consumtion_time/consumtion_time.dart';
-
 import 'package:alcohol_check/models/alcohol_data.dart';
 import 'package:alcohol_check/models/consumption_pop_up.dart';
 import 'package:alcohol_check/models/user_data.dart';
+import 'package:alcohol_check/pages/consumtion/choosen_consumtion.dart';
+import 'package:alcohol_check/pages/consumtion/consumtion_pop_up.dart';
+import 'package:alcohol_check/pages/consumtion_time/consumtion_time.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
@@ -50,7 +49,7 @@ class _ConsumtionState extends State<Consumtion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +139,7 @@ class _ConsumtionState extends State<Consumtion> {
         bottomNavigationBar: Stack(
           alignment: Alignment.center,
           children: [
-            CustomBottomNavigationBar(),
+            const CustomBottomNavigationBar(),
             Positioned(
               top: 0,
               child: FloatingActionButton(
@@ -151,8 +150,14 @@ class _ConsumtionState extends State<Consumtion> {
                   });
                 },
                 child: !isVisible
-                    ? const Icon(Icons.add_sharp,color: AppColor.whiteColor,)
-                    : const Icon(Icons.close,color: AppColor.whiteColor,),
+                    ? const Icon(
+                        Icons.add_sharp,
+                        color: AppColor.whiteColor,
+                      )
+                    : const Icon(
+                        Icons.close,
+                        color: AppColor.whiteColor,
+                      ),
               ),
             ),
           ],

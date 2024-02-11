@@ -66,9 +66,11 @@ class ChoosenConsumtion extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 70.0),
-                        child: Flexible(
+                        child: SizedBox(
+                          width: 40.0,
                           child: IconButton(
-                            icon: const Icon(Icons.cancel_outlined,color: AppColor.greyColor,),
+                            icon: const Icon(Icons.cancel_outlined,
+                                color: AppColor.greyColor),
                             onPressed: () {
                               removeFromConsumtion();
                             },
