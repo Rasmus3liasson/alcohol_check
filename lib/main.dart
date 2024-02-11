@@ -6,18 +6,20 @@ import 'package:alcohol_check/utils/enums/gender_enum.dart';
 import 'package:alcohol_check/utils/functions/components/appbar.dart';
 import 'package:alcohol_check/utils/functions/components/bottom_navigationbar.dart';
 import 'package:alcohol_check/utils/functions/components/button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'models/user_data.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-   
+  await Firebase.initializeApp().then((value) {
+    print('Firebase initialized successfully!');
+  });
+  FirebaseFirestore.instance.settings = Settings(persistenceEnabled: true);
+
   runApp(MyApp());
 }
 
@@ -28,14 +30,9 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-
-
 class _MyAppState extends State<MyApp> {
-  
-  
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       title: 'User Information',
       debugShowCheckedModeBanner: false,
