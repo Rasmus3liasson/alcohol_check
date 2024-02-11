@@ -32,7 +32,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
     setState(() {
       historyData = retrievedData;
     });
-    print(retrievedData);
   }
 
   Future<void> getUserResult() async {
@@ -118,52 +117,67 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 child: userResult != null
                     ? ListView(
                         scrollDirection: Axis.vertical,
-                        children: (historyData).map((entry) {
-                          return ListTile(
-                            title: Container(
-                              margin: const EdgeInsets.only(bottom: 30.0),
-                              decoration: BoxDecoration(
-                                color: AppColor.blackColor,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColor.greyColor.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(30.0),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        DateFormat('dd/MM-yy')
-                                            .format(entry!.date),
-                                        style: const TextStyle(
-                                          color: AppColor.whiteColor,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20.0),
-                                      Text(
-                                        'Promile: ${entry.bacResult}',
-                                        style: const TextStyle(
-                                            color: AppColor.whiteColor,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
+                        children: historyData.isEmpty
+                            ? [
+                                const Center(
+                                  child: Text(
+                                    'Kunde inte hitta någon historik',
+                                    style: TextStyle(
+                                      color: AppColor.blackColor,
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                              ]
+                            : (historyData).map((entry) {
+                                return ListTile(
+                                  title: Container(
+                                    margin: const EdgeInsets.only(bottom: 30.0),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.blackColor,
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColor.greyColor
+                                              .withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              DateFormat('dd/MM-yy')
+                                                  .format(entry!.date),
+                                              style: const TextStyle(
+                                                color: AppColor.whiteColor,
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20.0),
+                                            Text(
+                                              'Promile: ${entry.bacResult}',
+                                              style: const TextStyle(
+                                                  color: AppColor.whiteColor,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
                       )
                     : const Align(
                         alignment: Alignment.topCenter,
