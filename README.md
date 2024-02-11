@@ -12,8 +12,6 @@ Alkoholkontrollprojektet är utformat för att beräkna blodalkoholhalt (BAC) ba
 
 - **Förbättringar av användargränssnittet: Förbättra användargränssnittet för en bättre användarupplevelse**.
 
-- **Skapa en google inloggning med firebase för att spara användarens uppgifter i form av längd, vikt och kön**.
-
 ## Komma igång
 
 För att använda detta projekt, följ dessa steg:

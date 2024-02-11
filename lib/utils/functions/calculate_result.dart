@@ -15,14 +15,18 @@ SoberResult isSober({
   required double timeDifferenceInHours,
 }) {
   final genderNumber = gender == Gender.man ? 0.68 : 0.55;
-  final alcoholInGrams = alcoholConsumed * 0.789; // Convert cl to grams
+  final alcoholInGrams =
+      alcoholConsumed * 10 * 0.789; // Convert cl to ml, then to grams
+
   final bodyWeightInGrams = weight * 1000;
 
-  double bacAllDecimals =
-      (alcoholInGrams / (bodyWeightInGrams * genderNumber)) -
-          (0.015 * timeDifferenceInHours);
+  double bac = (alcoholInGrams / (bodyWeightInGrams * genderNumber));
 
-  double bac = double.parse(bacAllDecimals.toStringAsFixed(2));
+  bac -= 0.015 * timeDifferenceInHours;
+
+  // Make sure its not negative
+  bac = bac.clamp(0.0, double.infinity);
+  bac = double.parse(bac.toStringAsFixed(2));
 
   const alcoholLimit = 0.02;
 

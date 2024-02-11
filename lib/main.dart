@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:alcohol_check/pages/consumtion/person_details/person_details.dart';
+import 'package:alcohol_check/pages/person_details/person_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

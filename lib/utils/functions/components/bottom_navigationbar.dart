@@ -1,4 +1,4 @@
-import 'package:alcohol_check/pages/consumtion/person_details/person_details.dart';
+import 'package:alcohol_check/pages/person_details/person_details.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/drawer.dart';
 import 'package:flutter/material.dart';

@@ -40,7 +40,7 @@ class _ResultState extends State<Result> {
   @override
   void initState() {
     super.initState();
-    loadPref();
+    user?.uid != null ? loadPref() : null;
   }
 
   Future<void> loadPref() async {
