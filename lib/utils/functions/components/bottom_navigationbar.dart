@@ -1,4 +1,4 @@
-import 'package:alcohol_check/main.dart';
+import 'package:alcohol_check/pages/consumtion/person_details/person_details.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/components/drawer.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                 if (i == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
+                    MaterialPageRoute(builder: (context) => const PersonDeatils()),
                   );
                 } else {
                   setState(() {
