@@ -21,7 +21,7 @@ Future<Map<String, dynamic>> signInGoogle() async {
     final User? user = authResult.user;
 
     if (user != null) {
-      return {'result': AccountData(name: user.displayName ?? "", photoURL: user.photoURL ?? "", uid: user.uid), 'error': null};
+      return {'result': AccountData(name: user.displayName ?? "", photoURL: user.photoURL ?? "", uid: user.uid, email: user.email ?? ""), 'error': null};
     } else {
       return {'result': null, 'error': 'User is null'};
     }

@@ -44,7 +44,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
         userResult = AccountData.fromJson(userResultMap);
       });
     }
-
     setHistoryData();
   }
 
@@ -55,6 +54,28 @@ class _CustomDrawerState extends State<CustomDrawer> {
         .push(MaterialPageRoute(builder: (context) => const MyApp()));
   }
 
+  Widget SignOutButtonWidget(BuildContext context) {
+  if (userResult != null && userResult!.uid.isNotEmpty) {
+    return GestureDetector(
+      onTap: () async {
+        await signOut(context);
+      },
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+        child: ListTile(
+          trailing: Icon(
+            Icons.logout,
+            color: AppColor.blackColor,
+            size: 50.0,
+          ),
+        ),
+      ),
+    );
+  } else {
+    return const SizedBox.shrink();
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -62,96 +83,79 @@ class _CustomDrawerState extends State<CustomDrawer> {
       backgroundColor: AppColor.whiteColor,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(color: AppColor.blackColor),
-                child: userResult != null
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 30.0, top: 70.0),
-                            child: SizedBox(
-                              child: Text(
-                                userResult!.name
-                                        .split(" ")
-                                        .first[0]
-                                        .toUpperCase() +
-                                    userResult!.name
-                                        .split(" ")
-                                        .first
-                                        .substring(1),
-                                style: const TextStyle(
-                                  fontSize: 30.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              await signOut(context);
-                            },
-                            child: const Icon(Icons.logout_rounded, size: 50.0),
-                          ),
-                        ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: userResult != null && userResult!.uid.isNotEmpty
+                    ? UserAccountsDrawerHeader(
+                        decoration: const BoxDecoration(
+                          color: AppColor.blackColor,
+                        ),
+                        accountName: Text(userResult!.name),
+                        accountEmail: Text(userResult!.email),
+                        currentAccountPicture: CircleAvatar(
+                          backgroundImage: NetworkImage(userResult!.photoURL),
+                        ),
+                        onDetailsPressed: () async {
+                          await signOut(context);
+                        },
                       )
-                    : const Center(
-                        child: Text(
-                        'Historik',
-                        style: TextStyle(fontSize: 35.0),
-                      )),
+                    : const DrawerHeader(
+                        decoration: BoxDecoration(color: AppColor.blackColor),
+                        child: Center(
+                          child: Text(
+                            'Historik',
+                            style: TextStyle(fontSize: 35.0),
+                          ),
+                        )),
               ),
-            ),
-            const SizedBox(
-              height: 40.0,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: userResult != null
-                    ? ListView(
-                        scrollDirection: Axis.vertical,
-                        children: historyData.isEmpty
-                            ? [
-                                const Center(
-                                  child: Text(
-                                    'Kunde inte hitta någon historik',
-                                    style: TextStyle(
-                                      color: AppColor.blackColor,
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.w500,
+              const SizedBox(
+                height: 40.0,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: userResult != null
+                      ? ListView(
+                          scrollDirection: Axis.vertical,
+                          children: historyData.isEmpty
+                              ? [
+                                  const Center(
+                                    child: Text(
+                                      'Kunde inte hitta någon historik',
+                                      style: TextStyle(
+                                        color: AppColor.blackColor,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
-                                ),
-                              ]
-                            : (historyData).map((entry) {
-                                return ListTile(
-                                  title: Container(
-                                    margin: const EdgeInsets.only(bottom: 30.0),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.blackColor,
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColor.greyColor
-                                              .withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: const Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(30.0),
-                                      child: Center(
+                                ]
+                              : (historyData).map((entry) {
+                                  return ListTile(
+                                    title: Container(
+                                      margin:
+                                          const EdgeInsets.only(bottom: 30.0),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.blackColor,
+                                        shape: BoxShape.rectangle,
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColor.greyColor
+                                                .withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: const Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(30.0),
                                         child: Column(
                                           children: [
                                             Text(
@@ -167,34 +171,34 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                             Text(
                                               'Promile: ${entry.bacResult}',
                                               style: const TextStyle(
-                                                  color: AppColor.whiteColor,
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.w700),
+                                                color: AppColor.whiteColor,
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
-                      )
-                    : const Align(
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          'Du måste logga in för att se historik',
-                          style: TextStyle(
-                            color: AppColor.blackColor,
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.w500,
+                                  );
+                                }).toList(),
+                        )
+                      : const Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            'Du måste logga in för att se historik',
+                            style: TextStyle(
+                              color: AppColor.blackColor,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
-                      ),
+                ),
               ),
-            ),
-          ],
-        ),
+              SignOutButtonWidget(context)
+            ]),
       ),
     );
   }
