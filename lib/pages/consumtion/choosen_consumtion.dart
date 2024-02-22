@@ -29,13 +29,13 @@ class ChoosenConsumtion extends StatelessWidget {
             },
             child: Card(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.blackColor.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 8,
-                      offset: const Offset(0, 1),
+                      color: AppColor.blackColorLighter,
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 1),
                     ),
                   ],
                 ),

@@ -55,7 +55,7 @@ class _ConsumtionState extends State<Consumtion> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               if (consumtionList.isEmpty && !isVisible)
-                const Text('Lägg till din dryckes mängd',
+                const Text('Lägg till din konsumtion',
                     style: TextStyle(fontSize: 30.0)),
               if (isVisible)
                 Expanded(
@@ -72,8 +72,9 @@ class _ConsumtionState extends State<Consumtion> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Card(
+                            color: AppColor.blackColorLighter,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
+                              borderRadius: BorderRadius.circular(20.0),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(30.0),
@@ -143,7 +144,7 @@ class _ConsumtionState extends State<Consumtion> {
             Positioned(
               top: 0,
               child: FloatingActionButton(
-                backgroundColor: AppColor.blackColor,
+                backgroundColor: AppColor.purpleColor,
                 onPressed: () {
                   setState(() {
                     isVisible = !isVisible;

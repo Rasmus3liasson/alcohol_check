@@ -88,7 +88,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                   child: Row(
                     children: [
                       const CustomDrawer(),
-                      FillEmptySpace(),
+                      fillEmptySpace(),
                     ],
                   ),
                 );
@@ -99,7 +99,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     );
   }
 
-  Expanded FillEmptySpace() {
+  Expanded fillEmptySpace() {
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() {

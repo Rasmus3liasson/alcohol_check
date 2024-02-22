@@ -55,26 +55,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 
   Widget SignOutButtonWidget(BuildContext context) {
-  if (userResult != null && userResult!.uid.isNotEmpty) {
-    return GestureDetector(
-      onTap: () async {
-        await signOut(context);
-      },
-      child: const Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 20.0),
-        child: ListTile(
-          trailing: Icon(
-            Icons.logout,
-            color: AppColor.blackColor,
-            size: 50.0,
+    if (userResult != null && userResult!.uid.isNotEmpty) {
+      return GestureDetector(
+        onTap: () async {
+          await signOut(context);
+        },
+        child: const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+          child: ListTile(
+            trailing: Icon(
+              Icons.logout,
+              color: AppColor.blackColor,
+              size: 50.0,
+            ),
           ),
         ),
-      ),
-    );
-  } else {
-    return const SizedBox.shrink();
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +98,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         currentAccountPicture: CircleAvatar(
                           backgroundImage: NetworkImage(userResult!.photoURL),
                         ),
-                        onDetailsPressed: () async {
-                          await signOut(context);
-                        },
                       )
                     : const DrawerHeader(
                         decoration: BoxDecoration(color: AppColor.blackColor),
@@ -178,7 +175,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                             ),
                                           ],
                                         ),
-                                      ), 
+                                      ),
                                     ),
                                   );
                                 }).toList(),

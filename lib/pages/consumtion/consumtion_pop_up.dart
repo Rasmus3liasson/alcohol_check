@@ -67,8 +67,12 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Padding(
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      backgroundColor: AppColor.blackColorLighter,
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -134,14 +138,13 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
               height: 10.0,
             ),
             ElevatedButton(
-               style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.blackColor, 
-                    padding: const EdgeInsets.all(18.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(30.0), 
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.purpleColor,
+                padding: const EdgeInsets.all(18.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
               onPressed: () {
                 ConsumptionPopUpData resultData = ConsumptionPopUpData(
                   image: widget.alcoholData.image,
@@ -149,12 +152,14 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                   units: units ?? 0,
                   unitSign: unitSign,
                 );
-      
+
                 Navigator.of(context).pop(resultData);
               },
               child: const Text("Lägg till"),
               
-            )
+            ),
+            const SizedBox(
+              height: 20.0,)
           ],
         ),
       ),

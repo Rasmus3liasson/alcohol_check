@@ -20,7 +20,7 @@ class CustomNavigationButtonState extends State<CustomNavigationButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColor.blackColor,
+        backgroundColor: AppColor.purpleColor,
         padding: const EdgeInsets.all(20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),

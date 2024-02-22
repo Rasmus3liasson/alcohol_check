@@ -34,6 +34,27 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
       initialTime: !state
           ? startDrinkTime ?? TimeOfDay.now()
           : endDrinkTime ?? TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+        data: ThemeData.light().copyWith(
+          colorScheme: const ColorScheme.dark(
+            primary: AppColor.whiteColor, // Customize primary color
+            onPrimary: AppColor.whiteColor, // Customize text color on primary color
+            surface: AppColor.blackColorLighter, // Customize surface color
+            onSurface: AppColor.purpleColor, // Customize text color on surface color
+          ),
+          // You can also customize other aspects of the theme such as text styles, button styles, etc.
+        ),
+        child: MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        ),
+      );
+    },
+      helpText: 'Välj tid',
+      cancelText: 'Stäng',
+      confirmText: 'OK',
+      initialEntryMode: TimePickerEntryMode.input,
     );
 
     if (choice != null) {
@@ -100,7 +121,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Center(
         child: Stack(
           children: [
@@ -125,7 +146,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                   (endDrinkTime == null)
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.blackColor,
+                            backgroundColor: AppColor.purpleColor,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 40.0),
                             shape: RoundedRectangleBorder(
@@ -145,7 +166,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
                         )
                       : ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.blackColor,
+                            backgroundColor: AppColor.purpleColor,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 40.0),
                             shape: RoundedRectangleBorder(
@@ -171,7 +192,7 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
