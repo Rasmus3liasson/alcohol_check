@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _showLoading = true;
       });
       Timer(const Duration(seconds: 2), () {
-        Navigator.of(context).pushReplacementNamed('/details');
+        Navigator.of(context).pushReplacementNamed('/start');
       });
     });
   }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:alcohol_check/main.dart';
 import 'package:alcohol_check/models/account_data.dart';
 import 'package:alcohol_check/models/history_data.dart';
+import 'package:alcohol_check/pages/start/start.dart';
 import 'package:alcohol_check/utils/constans/color.dart';
 import 'package:alcohol_check/utils/functions/user_data.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('userResult');
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const MyApp()));
+        .push(MaterialPageRoute(builder: (context) => const StartScreen()));
   }
 
   Widget SignOutButtonWidget(BuildContext context) {

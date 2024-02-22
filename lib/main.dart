@@ -1,5 +1,5 @@
-import 'package:alcohol_check/pages/person_details/person_details.dart';
 import 'package:alcohol_check/pages/splash/splash_screen.dart';
+import 'package:alcohol_check/pages/start/start.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => const SplashScreen(),
-        '/details': (context) => const PersonDeatils(),
+        '/start': (context) => const StartScreen(),
       },
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: ThemeMode.dark,
