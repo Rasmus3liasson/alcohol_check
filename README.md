@@ -4,7 +4,7 @@
 
 Alkoholkontrollprojektet är utformat för att beräkna blodalkoholhalt (BAC) baserat på användarinmatning och ger information om nykterhet som visar om man är redo nyker för att köra bil.
 
-Spara även historik för inloggade användare med hjälp utav Firestore
+Sparar även historik för inloggade användare med hjälp utav Firestore
 
 ## Komma igång
 
