@@ -36,21 +36,20 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
           : endDrinkTime ?? TimeOfDay.now(),
       builder: (BuildContext context, Widget? child) {
         return Theme(
-        data: ThemeData.light().copyWith(
-          colorScheme: const ColorScheme.dark(
-            primary: AppColor.whiteColor, // Customize primary color
-            onPrimary: AppColor.whiteColor, // Customize text color on primary color
-            surface: AppColor.blackColorLighter, // Customize surface color
-            onSurface: AppColor.purpleColor, // Customize text color on surface color
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: AppColor.greyColor,
+              onPrimary: AppColor.whiteColor,
+              surface: AppColor.blackColor,
+              onSurface: AppColor.purpleColor,
+            ),
           ),
-          // You can also customize other aspects of the theme such as text styles, button styles, etc.
-        ),
-        child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
-        ),
-      );
-    },
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          ),
+        );
+      },
       helpText: 'Välj tid',
       cancelText: 'Stäng',
       confirmText: 'OK',
@@ -186,7 +185,10 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
               Container(
                 color: AppColor.blackColor.withOpacity(0.5),
                 child: const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(AppColor.whiteColor),
+                  ),
                 ),
               ),
           ],

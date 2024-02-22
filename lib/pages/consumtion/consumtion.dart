@@ -144,6 +144,7 @@ class _ConsumtionState extends State<Consumtion> {
             Positioned(
               top: 0,
               child: FloatingActionButton(
+                shape: const CircleBorder(),
                 backgroundColor: AppColor.purpleColor,
                 onPressed: () {
                   setState(() {
