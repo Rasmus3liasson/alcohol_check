@@ -121,77 +121,79 @@ class _ConsumtionTimeState extends State<ConsumtionTime> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: Center(
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    startDrinkTime == null
-                        ? 'Välj tid'
-                        : 'Starttid: ${startDrinkTime.toString().substring(10, 15)}',
-                    style: const TextStyle(fontSize: 30.0),
-                  ),
-                  const SizedBox(height: 20.0),
-                  Text(
-                    endDrinkTime == null
-                        ? ''
-                        : 'Sluttid: ${endDrinkTime.toString().substring(10, 15)}',
-                    style: const TextStyle(fontSize: 30.0),
-                  ),
-                  const SizedBox(height: 50.0),
-                  (endDrinkTime == null)
-                      ? ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.purpleColor,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 40.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+      body: SafeArea(
+        child: Center(
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      startDrinkTime == null
+                          ? 'Välj tid'
+                          : 'Starttid: ${startDrinkTime.toString().substring(10, 15)}',
+                      style: const TextStyle(fontSize: 30.0),
+                    ),
+                    const SizedBox(height: 20.0),
+                    Text(
+                      endDrinkTime == null
+                          ? ''
+                          : 'Sluttid: ${endDrinkTime.toString().substring(10, 15)}',
+                      style: const TextStyle(fontSize: 30.0),
+                    ),
+                    const SizedBox(height: 50.0),
+                    (endDrinkTime == null)
+                        ? ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.purpleColor,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 40.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
                             ),
-                          ),
-                          onPressed: () async {
-                            await timeInput(context);
-                            setState(() {
-                              state = true;
-                            });
-                          },
-                          child: Text(
-                            !state ? "Start tid" : "Slut tid",
-                            style: const TextStyle(fontSize: 24.0),
-                          ),
-                        )
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.purpleColor,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 40.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                            onPressed: () async {
+                              await timeInput(context);
+                              setState(() {
+                                state = true;
+                              });
+                            },
+                            child: Text(
+                              !state ? "Start tid" : "Slut tid",
+                              style: const TextStyle(fontSize: 24.0),
                             ),
+                          )
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.purpleColor,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 40.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              showResult();
+                            },
+                            child: const Text("Se Resultat",
+                                style: TextStyle(fontSize: 24.0)),
                           ),
-                          onPressed: () {
-                            showResult();
-                          },
-                          child: const Text("Se Resultat",
-                              style: TextStyle(fontSize: 24.0)),
-                        ),
-                ],
-              ),
-            ),
-            if (isLoading)
-              Container(
-                color: AppColor.blackColor.withOpacity(0.5),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(AppColor.whiteColor),
-                  ),
+                  ],
                 ),
               ),
-          ],
+              if (isLoading)
+                Container(
+                  color: AppColor.blackColor.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(AppColor.whiteColor),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),

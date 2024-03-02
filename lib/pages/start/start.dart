@@ -11,27 +11,29 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppBar(),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text('Välkommen till Alcohol Check!',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-              )),
-          SizedBox(height: 10.0),
-          Text('För att komma igång, klicka på start',
-              style: TextStyle(
-                fontSize: 20.0,
-              )),
-          SizedBox(height: 40.0),
-          CustomNavigationButton(
-            text: 'Start',
-            widgetNavigation: PersonDeatils(),
-          ),
-        ],
-      )),
+      body: SafeArea(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Välkommen till Alcohol Check!',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(height: 10.0),
+            Text('För att komma igång, klicka på start',
+                style: TextStyle(
+                  fontSize: 20.0,
+                )),
+            SizedBox(height: 40.0),
+            CustomNavigationButton(
+              text: 'Start',
+              widgetNavigation: PersonDeatils(),
+            ),
+          ],
+        )),
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }

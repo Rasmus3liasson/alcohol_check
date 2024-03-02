@@ -78,22 +78,24 @@ class _ResultState extends State<Result> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (result != null && result!.isSober)
-              Sober(bac: result!.bac)
-            else
-              Drunk(bac: result!.bac),
-            const SizedBox(
-              height: 40.0,
-            ),
-            const CustomNavigationButton(
-              text: 'Tillbaka till hemskärmen',
-              widgetNavigation: StartScreen(),
-            ),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (result != null && result!.isSober)
+                Sober(bac: result!.bac)
+              else
+                Drunk(bac: result!.bac),
+              const SizedBox(
+                height: 40.0,
+              ),
+              const CustomNavigationButton(
+                text: 'Tillbaka till hemskärmen',
+                widgetNavigation: StartScreen(),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),

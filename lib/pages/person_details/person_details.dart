@@ -28,8 +28,10 @@ class _PersonDeatilsState extends State<PersonDeatils> {
     );
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: Center(
-        child: userDetaills(userData),
+      body: SafeArea(
+        child: Center(
+          child: userDetaills(userData),
+        ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
