@@ -81,7 +81,7 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.cancel),
+                  icon: const Icon(Icons.cancel_outlined),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -156,10 +156,10 @@ class _ConsumptionPopUpState extends State<ConsumptionPopUp> {
                 Navigator.of(context).pop(resultData);
               },
               child: const Text("Lägg till"),
-              
             ),
             const SizedBox(
-              height: 20.0,)
+              height: 20.0,
+            )
           ],
         ),
       ),

@@ -70,7 +70,8 @@ class _PersonDeatilsState extends State<PersonDeatils> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: AppColor.whiteColor)),
                         labelText: 'Längd (cm)',
-                        labelStyle: TextStyle(color: AppColor.whiteColor)),
+                        labelStyle: TextStyle(
+                            color: AppColor.whiteColor, fontSize: 20.0)),
                     style: const TextStyle(
                       fontSize: 20.0,
                     ),
@@ -104,7 +105,8 @@ class _PersonDeatilsState extends State<PersonDeatils> {
                     },
                     decoration: const InputDecoration(
                         labelText: 'Vikt (kg)',
-                        labelStyle: TextStyle(color: AppColor.whiteColor),
+                        labelStyle: TextStyle(
+                            color: AppColor.whiteColor, fontSize: 20.0),
                         focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColor.whiteColor))),
@@ -124,27 +126,36 @@ class _PersonDeatilsState extends State<PersonDeatils> {
           ),
           const SizedBox(height: 14.0),
           // Gender dropdown
-          DropdownButton<Gender>(
-            value: gender,
-            onChanged: (newValue) {
-              setState(() {
-                gender = newValue!;
-              });
-            },
-            items: Gender.values
-                .map<DropdownMenuItem<Gender>>(
-                  (Gender value) => DropdownMenuItem<Gender>(
-                    value: value,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Text(
-                        '${value.toString().split('.').last[0].toUpperCase()}${value.toString().split('.').last.substring(1)}',
-                        textAlign: TextAlign.center,
+          SizedBox(
+            width: 150.0,
+            height: 100.0,
+            child: Center(
+              child: DropdownButton<Gender>(
+                value: gender,
+                onChanged: (newValue) {
+                  setState(() {
+                    gender = newValue!;
+                  });
+                },
+                items: Gender.values
+                    .map<DropdownMenuItem<Gender>>(
+                      (Gender value) => DropdownMenuItem<Gender>(
+                        value: value,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            '${value.toString().split('.').last[0].toUpperCase()}${value.toString().split('.').last.substring(1)}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                )
-                .toList(),
+                    )
+                    .toList(),
+              ),
+            ),
           ),
           const SizedBox(height: 20.0),
 
